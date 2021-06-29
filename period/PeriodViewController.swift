@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PeriodViewController: UIViewController {
+final class PeriodViewController: UIViewController {
 
     var periodView: UIView!
     
@@ -21,6 +21,7 @@ class PeriodViewController: UIViewController {
     
     var datePicker: UIDatePicker!
     
+  
     
     
      override func loadView() {
@@ -113,10 +114,13 @@ class PeriodViewController: UIViewController {
                 
         self.clearButton = clearButton
         clearButton.setTitle("Очистить", for: .normal)
+        clearButton.titleLabel?.font = UIFont(name: "Inter-Regular", size: 14)
+        clearButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         clearButton.setTitleColor(#colorLiteral(red: 0.2591463923, green: 0.4271838069, blue: 0.6611289978, alpha: 1), for: .normal)
         clearButton.addTarget(self, action: #selector(tappedClearButton), for: .touchUpInside)
         
         self.periodLabel = periodLabel
+        periodLabel.font = UIFont(name: "Inter-Regular", size: 16)
         periodLabel.text = "Период"
         
         self.closeButton = closeButton
@@ -125,6 +129,7 @@ class PeriodViewController: UIViewController {
         self.dateTextFieldFrom = dateTextFieldFrom
         dateTextFieldFrom.layer.cornerRadius = 8
         dateTextFieldFrom.placeholder = "Дата от"
+        dateTextFieldFrom.font = UIFont(name: "Inter-Regular", size: 16)
         dateTextFieldFrom.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
         dateTextFieldFrom.setLeftPaddingPoints(16)
         dateTextFieldFrom.setRightPaddingPoints(16)
@@ -132,6 +137,7 @@ class PeriodViewController: UIViewController {
         self.dateTextFieldTo = dateTextFieldTo
         dateTextFieldTo.layer.cornerRadius = 8
         dateTextFieldTo.placeholder = "Дата до"
+        dateTextFieldTo.font = UIFont(name: "Inter-Regular", size: 16)
         dateTextFieldTo.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
         dateTextFieldTo.setLeftPaddingPoints(16)
         dateTextFieldTo.setRightPaddingPoints(16)
@@ -139,6 +145,8 @@ class PeriodViewController: UIViewController {
         self.chooseButton = chooseButton
         chooseButton.layer.cornerRadius = 8
         chooseButton.setTitle("Выбрать", for: .normal)
+        chooseButton.titleLabel?.font = UIFont(name: "Inter-Regular", size: 16)
+        chooseButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         chooseButton.backgroundColor = #colorLiteral(red: 0.2591463923, green: 0.4271838069, blue: 0.6611289978, alpha: 1)
         chooseButton.tintColor = .white
         chooseButton.addTarget(self, action: #selector(tappedChooseButton), for: .touchUpInside)
