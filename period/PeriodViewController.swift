@@ -14,8 +14,8 @@ class PeriodViewController: UIViewController {
     var clearButton: UIButton!
     var periodLabel: UILabel!
     var closeButton: UIButton!
-    @IBOutlet weak var dateTextFieldFrom: UITextField!
-    @IBOutlet weak var dateTextFieldTo: UITextField!
+    weak var dateTextFieldFrom: UITextField!
+    weak var dateTextFieldTo: UITextField!
     var chooseButton: UIButton!
     var closeImage: UIImage!
     
@@ -64,31 +64,45 @@ class PeriodViewController: UIViewController {
             periodView.bottomAnchor.constraint(equalTo: chooseButton.bottomAnchor, constant: 16),
             periodView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             periodView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+         ])
             
+        NSLayoutConstraint.activate([
             clearButton.topAnchor.constraint(equalTo: periodView.topAnchor, constant: 14),
             clearButton.leadingAnchor.constraint(equalTo: periodView.leadingAnchor, constant: 16),
-            
-            periodLabel.topAnchor.constraint(equalTo: periodView.topAnchor, constant: 20),
+            clearButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+          
+        NSLayoutConstraint.activate([
+            periodLabel.topAnchor.constraint(equalTo: periodView.topAnchor, constant: 14),
             periodLabel.centerXAnchor.constraint(equalTo: periodView.centerXAnchor),
-            
-            closeButton.topAnchor.constraint(equalTo: periodView.topAnchor, constant: 20),
+            periodLabel.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: periodView.topAnchor, constant: 14),
             closeButton.trailingAnchor.constraint(equalTo: periodView.trailingAnchor, constant: -16),
-            
-            dateTextFieldFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: 22),
+            closeButton.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        NSLayoutConstraint.activate([
+            dateTextFieldFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: 8),
             dateTextFieldFrom.leadingAnchor.constraint(equalTo: periodView.leadingAnchor, constant: 16),
             dateTextFieldFrom.trailingAnchor.constraint(equalTo: periodView.centerXAnchor, constant: -5),
             dateTextFieldFrom.heightAnchor.constraint(equalToConstant: 52),
- 
+        ])
+        
+        NSLayoutConstraint.activate([
             dateTextFieldTo.topAnchor.constraint(equalTo: dateTextFieldFrom.topAnchor),
             dateTextFieldTo.leadingAnchor.constraint(equalTo: periodView.centerXAnchor, constant: 5),
             dateTextFieldTo.trailingAnchor.constraint(equalTo: periodView.trailingAnchor, constant: -16),
             dateTextFieldTo.heightAnchor.constraint(equalToConstant: 52),
-            
+        ])
+        
+        NSLayoutConstraint.activate([
             chooseButton.topAnchor.constraint(equalTo: dateTextFieldFrom.bottomAnchor, constant: 24),
             chooseButton.leadingAnchor.constraint(equalTo: periodView.leadingAnchor, constant: 16),
             chooseButton.trailingAnchor.constraint(equalTo: periodView.trailingAnchor, constant: -16),
-            
-            
+            chooseButton.heightAnchor.constraint(equalToConstant: 40)
         ])
         
         
@@ -112,11 +126,15 @@ class PeriodViewController: UIViewController {
         dateTextFieldFrom.layer.cornerRadius = 8
         dateTextFieldFrom.placeholder = "Дата от"
         dateTextFieldFrom.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+        dateTextFieldFrom.setLeftPaddingPoints(16)
+        dateTextFieldFrom.setRightPaddingPoints(16)
         
         self.dateTextFieldTo = dateTextFieldTo
         dateTextFieldTo.layer.cornerRadius = 8
         dateTextFieldTo.placeholder = "Дата до"
         dateTextFieldTo.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+        dateTextFieldTo.setLeftPaddingPoints(16)
+        dateTextFieldTo.setRightPaddingPoints(16)
         
         self.chooseButton = chooseButton
         chooseButton.layer.cornerRadius = 8
@@ -144,8 +162,6 @@ class PeriodViewController: UIViewController {
         
         self.dateTextFieldFrom.setInputViewDatePicker(target: self, selector: #selector(tapDoneInFrom), dateOf:dateOfBeginning )
         self.dateTextFieldTo.setInputViewDatePicker(target: self, selector: #selector(tapDoneInTo), dateOf:dateOfEnding)
-        
-        
      }
     
     
@@ -153,7 +169,8 @@ class PeriodViewController: UIViewController {
     @objc func tapDoneInFrom() {
         if let datePicker = self.dateTextFieldFrom.inputView as? UIDatePicker {
             let dateformatter = DateFormatter()
-            dateformatter.dateStyle = .medium
+            dateformatter.locale = Locale(identifier: "ru-RU")
+            dateformatter.dateStyle = .short
             self.dateTextFieldFrom.text = dateformatter.string(from: datePicker.date)
         }
         self.dateTextFieldFrom.resignFirstResponder()
@@ -162,7 +179,8 @@ class PeriodViewController: UIViewController {
     @objc func tapDoneInTo() {
         if let datePicker = self.dateTextFieldTo.inputView as? UIDatePicker {
             let dateformatter = DateFormatter()
-            dateformatter.dateStyle = .medium
+            dateformatter.locale = Locale(identifier: "ru-RU")
+            dateformatter.dateStyle = .short
             self.dateTextFieldTo.text = dateformatter.string(from: datePicker.date)
         }
         self.dateTextFieldTo.resignFirstResponder() 
