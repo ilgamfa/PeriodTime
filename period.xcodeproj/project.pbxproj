@@ -10,9 +10,10 @@
 		BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E36792689D93000762BB4 /* UITextField+Extension.swift */; };
 		BB9EBDA52685E0CD00BD5CF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */; };
 		BB9EBDA72685E0CD00BD5CF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */; };
-		BB9EBDA92685E0CD00BD5CF5 /* PeriodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA82685E0CD00BD5CF5 /* PeriodViewController.swift */; };
 		BB9EBDAE2685E0D600BD5CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9EBDAD2685E0D600BD5CF5 /* Assets.xcassets */; };
 		BB9EBDB12685E0D700BD5CF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB9EBDAF2685E0D700BD5CF5 /* LaunchScreen.storyboard */; };
+		BBA89F88268CA13800FFA128 /* PeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA89F87268CA13800FFA128 /* PeriodView.swift */; };
+		BBBD6A4C268B6587009006EA /* PeriodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBD6A4B268B6587009006EA /* PeriodViewController.swift */; };
 		BBEDB8A3268B2B5D001C3F38 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BBEDB89F268B0F38001C3F38 /* Inter-Regular.otf */; };
 		BBEDB8A6268B2F79001C3F38 /* SF Pro Text.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBEDB8A5268B2F79001C3F38 /* SF Pro Text.ttf */; };
 /* End PBXBuildFile section */
@@ -22,10 +23,11 @@
 		BB9EBDA12685E0CD00BD5CF5 /* period.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = period.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BB9EBDA82685E0CD00BD5CF5 /* PeriodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodViewController.swift; sourceTree = "<group>"; };
 		BB9EBDAD2685E0D600BD5CF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB9EBDB02685E0D700BD5CF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB9EBDB22685E0D700BD5CF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBA89F87268CA13800FFA128 /* PeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodView.swift; sourceTree = "<group>"; };
+		BBBD6A4B268B6587009006EA /* PeriodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodViewController.swift; sourceTree = "<group>"; };
 		BBEDB89F268B0F38001C3F38 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
 		BBEDB8A5268B2F79001C3F38 /* SF Pro Text.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF Pro Text.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,15 +62,24 @@
 		BB9EBDA32685E0CD00BD5CF5 /* period */ = {
 			isa = PBXGroup;
 			children = (
-				BBEDB89E268B0F15001C3F38 /* Resources */,
-				BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */,
-				BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */,
-				BB9EBDA82685E0CD00BD5CF5 /* PeriodViewController.swift */,
+				BBA89F87268CA13800FFA128 /* PeriodView.swift */,
+				BBBD6A4B268B6587009006EA /* PeriodViewController.swift */,
 				BB1E36792689D93000762BB4 /* UITextField+Extension.swift */,
-				BB9EBDAF2685E0D700BD5CF5 /* LaunchScreen.storyboard */,
+				BBEDB89E268B0F15001C3F38 /* Resources */,
+				BBBD6A46268B5703009006EA /* AppFiles */,
 				BB9EBDB22685E0D700BD5CF5 /* Info.plist */,
 			);
 			path = period;
+			sourceTree = "<group>";
+		};
+		BBBD6A46268B5703009006EA /* AppFiles */ = {
+			isa = PBXGroup;
+			children = (
+				BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */,
+				BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */,
+				BB9EBDAF2685E0D700BD5CF5 /* LaunchScreen.storyboard */,
+			);
+			path = AppFiles;
 			sourceTree = "<group>";
 		};
 		BBEDB89E268B0F15001C3F38 /* Resources */ = {
@@ -160,8 +171,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB9EBDA92685E0CD00BD5CF5 /* PeriodViewController.swift in Sources */,
+				BBBD6A4C268B6587009006EA /* PeriodViewController.swift in Sources */,
 				BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */,
+				BBA89F88268CA13800FFA128 /* PeriodView.swift in Sources */,
 				BB9EBDA52685E0CD00BD5CF5 /* AppDelegate.swift in Sources */,
 				BB9EBDA72685E0CD00BD5CF5 /* SceneDelegate.swift in Sources */,
 			);
