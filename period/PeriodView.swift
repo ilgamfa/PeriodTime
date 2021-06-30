@@ -1,7 +1,3 @@
-//
-//  TestPeriodView.swift
-//  period
-//
 //  Created by Ильгам Ахматдинов on 30.06.2021.
 //
 
@@ -9,7 +5,21 @@ import UIKit
 
 private extension PeriodView {
     struct Configurator {
+        let chooseBtnTopOffset: CGFloat = 24
+        let heightThirdLevel: CGFloat = 40
+        let dateTopOffset: CGFloat = 8
+        let heightFirstLevel: CGFloat = 44
+        let heightSecondLevel: CGFloat = 52
+        let contentTopOffset: CGFloat = 102
         let cornerRadius: CGFloat = 8
+        let boldSystemFont16 = UIFont.boldSystemFont(ofSize: 16)
+        let boldSystemFont14 = UIFont.boldSystemFont(ofSize: 14)
+        let fontInterRegular16 =  UIFont(name: "Inter-Regular", size: 16)
+        let fontInterRegular14 =  UIFont(name: "Inter-Regular", size: 14)
+        let sideOffset: CGFloat = 16
+        let topOffset: CGFloat = 14
+        let centerOffset: CGFloat = 4
+        let paddingPoints: CGFloat = 16
     }
 }
 
@@ -54,64 +64,65 @@ final class PeriodView: UIView {
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: 102),
-            contentView.bottomAnchor.constraint(equalTo: chooseButton.bottomAnchor, constant: 16),
-            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: Configurator().contentTopOffset),
+            contentView.bottomAnchor.constraint(equalTo: chooseButton.bottomAnchor, constant: Configurator().sideOffset),
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Configurator().sideOffset),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Configurator().sideOffset),
         ])
         
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            clearButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
-            clearButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            clearButton.heightAnchor.constraint(equalToConstant: 44)
+            clearButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().topOffset),
+            clearButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
+            clearButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
         periodLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            periodLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
+            periodLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().topOffset),
             periodLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            periodLabel.heightAnchor.constraint(equalToConstant: 44)
+            periodLabel.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 14),
-            closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            closeButton.heightAnchor.constraint(equalToConstant: 44)
+            closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().topOffset),
+            closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
+            closeButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
         dateTextFieldFrom.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateTextFieldFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: 8),
-            dateTextFieldFrom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            dateTextFieldFrom.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -5),
-            dateTextFieldFrom.heightAnchor.constraint(equalToConstant: 52),
+            dateTextFieldFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: Configurator().dateTopOffset),
+            dateTextFieldFrom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
+            dateTextFieldFrom.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Configurator().centerOffset),
+            dateTextFieldFrom.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
         ])
         
         dateTextFieldTo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             dateTextFieldTo.topAnchor.constraint(equalTo: dateTextFieldFrom.topAnchor),
-            dateTextFieldTo.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 5),
-            dateTextFieldTo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            dateTextFieldTo.heightAnchor.constraint(equalToConstant: 52),
+            dateTextFieldTo.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Configurator().centerOffset),
+            dateTextFieldTo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
+            dateTextFieldTo.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
         ])
         
         chooseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chooseButton.topAnchor.constraint(equalTo: dateTextFieldFrom.bottomAnchor, constant: 24),
-            chooseButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            chooseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            chooseButton.heightAnchor.constraint(equalToConstant: 40)
+            chooseButton.topAnchor.constraint(equalTo: dateTextFieldFrom.bottomAnchor, constant: Configurator().chooseBtnTopOffset),
+            chooseButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
+            chooseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
+            chooseButton.heightAnchor.constraint(equalToConstant: Configurator().heightThirdLevel)
         ])
         
     }
     
+  
     
     let contentView: UIView = {
         let contentView = UIView(frame: .zero)
         contentView.backgroundColor = .white
-        contentView.layer.cornerRadius = 8
+        contentView.layer.cornerRadius = Configurator().cornerRadius
         
         return contentView
     }()
@@ -119,15 +130,15 @@ final class PeriodView: UIView {
     let clearButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Очистить", for: .normal)
-        button.titleLabel?.font = UIFont(name: "Inter-Regular", size: 14)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.titleLabel?.font = Configurator().fontInterRegular14
+        button.titleLabel?.font = Configurator().boldSystemFont14
         button.setTitleColor(UIColor(named: "primary 500"), for: .normal)
         return button
     }()
     
     let periodLabel: UILabel = {
         let label = UILabel()
-        label.font =  UIFont(name: "Inter-Regular", size: 16)
+        label.font =  Configurator().fontInterRegular16
         label.text = "Период"
         return label
     }()
@@ -140,32 +151,32 @@ final class PeriodView: UIView {
     
     let dateTextFieldFrom: UITextField = {
         let dateTextFieldFrom = UITextField()
-        dateTextFieldFrom.layer.cornerRadius = 8
+        dateTextFieldFrom.layer.cornerRadius = Configurator().cornerRadius
         dateTextFieldFrom.placeholder = "Дата от"
-        dateTextFieldFrom.font = UIFont(name: "Inter-Regular", size: 16)
+        dateTextFieldFrom.font = Configurator().fontInterRegular16
         dateTextFieldFrom.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-        dateTextFieldFrom.setLeftPaddingPoints(16)
-        dateTextFieldFrom.setRightPaddingPoints(16)
+        dateTextFieldFrom.setLeftPaddingPoints(Configurator().paddingPoints)
+        dateTextFieldFrom.setRightPaddingPoints(Configurator().paddingPoints)
         return dateTextFieldFrom
     }()
     
     let dateTextFieldTo: UITextField = {
         let dateTextFieldTo = UITextField()
-        dateTextFieldTo.layer.cornerRadius = 8
+        dateTextFieldTo.layer.cornerRadius = Configurator().cornerRadius
         dateTextFieldTo.placeholder = "Дата до"
-        dateTextFieldTo.font = UIFont(name: "Inter-Regular", size: 16)
+        dateTextFieldTo.font = Configurator().fontInterRegular16
         dateTextFieldTo.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-        dateTextFieldTo.setLeftPaddingPoints(16)
-        dateTextFieldTo.setRightPaddingPoints(16)
+        dateTextFieldTo.setLeftPaddingPoints(Configurator().paddingPoints)
+        dateTextFieldTo.setRightPaddingPoints(Configurator().paddingPoints)
         return dateTextFieldTo
     }()
     
     let chooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
-        chooseButton.layer.cornerRadius = 8
+        chooseButton.layer.cornerRadius = Configurator().cornerRadius
         chooseButton.setTitle("Выбрать", for: .normal)
-        chooseButton.titleLabel?.font = UIFont(name: "Inter-Regular", size: 16)
-        chooseButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        chooseButton.titleLabel?.font = Configurator().fontInterRegular16
+        chooseButton.titleLabel?.font = Configurator().boldSystemFont16
         chooseButton.backgroundColor = #colorLiteral(red: 0.2591463923, green: 0.4271838069, blue: 0.6611289978, alpha: 1)
         chooseButton.tintColor = .white
         return chooseButton

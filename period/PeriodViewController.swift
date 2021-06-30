@@ -1,7 +1,3 @@
-//
-//  testViewController.swift
-//  period
-//
 //  Created by Ильгам Ахматдинов on 29.06.2021.
 //
 

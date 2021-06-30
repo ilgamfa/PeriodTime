@@ -1,7 +1,3 @@
-//
-//  File.swift
-//  period
-//
 //  Created by Ильгам Ахматдинов on 28.06.2021.
 //
 
