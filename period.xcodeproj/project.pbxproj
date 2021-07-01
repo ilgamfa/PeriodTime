@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E36792689D93000762BB4 /* UITextField+Extension.swift */; };
+		BB5B875E268E072900E4CBA4 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B875C268E072900E4CBA4 /* Assets.swift */; };
+		BB5B875F268E072900E4CBA4 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B875D268E072900E4CBA4 /* Fonts.swift */; };
 		BB9EBDA52685E0CD00BD5CF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */; };
 		BB9EBDA72685E0CD00BD5CF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */; };
 		BB9EBDAE2685E0D600BD5CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9EBDAD2685E0D600BD5CF5 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 
 /* Begin PBXFileReference section */
 		BB1E36792689D93000762BB4 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		BB5B875C268E072900E4CBA4 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		BB5B875D268E072900E4CBA4 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		BB9EBDA12685E0CD00BD5CF5 /* period.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = period.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB5B8759268E066800E4CBA4 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				BB5B875C268E072900E4CBA4 /* Assets.swift */,
+				BB5B875D268E072900E4CBA4 /* Fonts.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		BB9EBD982685E0CD00BD5CF5 = {
 			isa = PBXGroup;
 			children = (
@@ -65,6 +78,7 @@
 				BBA89F87268CA13800FFA128 /* PeriodView.swift */,
 				BBBD6A4B268B6587009006EA /* PeriodViewController.swift */,
 				BB1E36792689D93000762BB4 /* UITextField+Extension.swift */,
+				BB5B8759268E066800E4CBA4 /* Generated */,
 				BBEDB89E268B0F15001C3F38 /* Resources */,
 				BBBD6A46268B5703009006EA /* AppFiles */,
 				BB9EBDB22685E0D700BD5CF5 /* Info.plist */,
@@ -193,8 +207,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB5B875F268E072900E4CBA4 /* Fonts.swift in Sources */,
 				BBBD6A4C268B6587009006EA /* PeriodViewController.swift in Sources */,
 				BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */,
+				BB5B875E268E072900E4CBA4 /* Assets.swift in Sources */,
 				BBA89F88268CA13800FFA128 /* PeriodView.swift in Sources */,
 				BB9EBDA52685E0CD00BD5CF5 /* AppDelegate.swift in Sources */,
 				BB9EBDA72685E0CD00BD5CF5 /* SceneDelegate.swift in Sources */,
