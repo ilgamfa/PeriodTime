@@ -119,7 +119,7 @@ final class PeriodView: UIView {
     
   
     
-    let contentView: UIView = {
+    private let contentView: UIView = {
         let contentView = UIView(frame: .zero)
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = Configurator().cornerRadius
@@ -127,7 +127,7 @@ final class PeriodView: UIView {
         return contentView
     }()
     
-    let clearButton: UIButton = {
+    private let clearButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Очистить", for: .normal)
         button.titleLabel?.font = Configurator().fontInterRegular14
@@ -136,20 +136,20 @@ final class PeriodView: UIView {
         return button
     }()
     
-    let periodLabel: UILabel = {
+    private let periodLabel: UILabel = {
         let label = UILabel()
         label.font =  Configurator().fontInterRegular16
         label.text = "Период"
         return label
     }()
     
-    let closeButton: UIButton = {
+    private let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "cancel_24px"), for: .normal)
         return button
     }()
     
-    let dateTextFieldFrom: UITextField = {
+    private let dateTextFieldFrom: UITextField = {
         let dateTextFieldFrom = UITextField()
         dateTextFieldFrom.layer.cornerRadius = Configurator().cornerRadius
         dateTextFieldFrom.placeholder = "Дата от"
@@ -160,7 +160,7 @@ final class PeriodView: UIView {
         return dateTextFieldFrom
     }()
     
-    let dateTextFieldTo: UITextField = {
+    private let dateTextFieldTo: UITextField = {
         let dateTextFieldTo = UITextField()
         dateTextFieldTo.layer.cornerRadius = Configurator().cornerRadius
         dateTextFieldTo.placeholder = "Дата до"
@@ -171,7 +171,7 @@ final class PeriodView: UIView {
         return dateTextFieldTo
     }()
     
-    let chooseButton: UIButton = {
+    private let chooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
         chooseButton.layer.cornerRadius = Configurator().cornerRadius
         chooseButton.setTitle("Выбрать", for: .normal)
