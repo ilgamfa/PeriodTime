@@ -8,24 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E36792689D93000762BB4 /* UITextField+Extension.swift */; };
+		BB5B875E268E072900E4CBA4 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B875C268E072900E4CBA4 /* Assets.swift */; };
+		BB5B875F268E072900E4CBA4 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B875D268E072900E4CBA4 /* Fonts.swift */; };
+		BB5B8766268E12B800E4CBA4 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = BB5B8768268E12B800E4CBA4 /* Localizable.strings */; };
 		BB9EBDA52685E0CD00BD5CF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */; };
 		BB9EBDA72685E0CD00BD5CF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */; };
-		BB9EBDA92685E0CD00BD5CF5 /* PeriodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB9EBDA82685E0CD00BD5CF5 /* PeriodViewController.swift */; };
 		BB9EBDAE2685E0D600BD5CF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB9EBDAD2685E0D600BD5CF5 /* Assets.xcassets */; };
 		BB9EBDB12685E0D700BD5CF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB9EBDAF2685E0D700BD5CF5 /* LaunchScreen.storyboard */; };
+		BBA89F88268CA13800FFA128 /* PeriodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA89F87268CA13800FFA128 /* PeriodView.swift */; };
+		BBBD6A4C268B6587009006EA /* PeriodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBD6A4B268B6587009006EA /* PeriodViewController.swift */; };
 		BBEDB8A3268B2B5D001C3F38 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BBEDB89F268B0F38001C3F38 /* Inter-Regular.otf */; };
 		BBEDB8A6268B2F79001C3F38 /* SF Pro Text.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBEDB8A5268B2F79001C3F38 /* SF Pro Text.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BB1E36792689D93000762BB4 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		BB5B875C268E072900E4CBA4 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		BB5B875D268E072900E4CBA4 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		BB5B8767268E12B800E4CBA4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		BB5B876A268E12DB00E4CBA4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		BB5B876B268E12DB00E4CBA4 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		BB9EBDA12685E0CD00BD5CF5 /* period.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = period.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		BB9EBDA82685E0CD00BD5CF5 /* PeriodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodViewController.swift; sourceTree = "<group>"; };
 		BB9EBDAD2685E0D600BD5CF5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB9EBDB02685E0D700BD5CF5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB9EBDB22685E0D700BD5CF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BBA89F87268CA13800FFA128 /* PeriodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodView.swift; sourceTree = "<group>"; };
+		BBBD6A4B268B6587009006EA /* PeriodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeriodViewController.swift; sourceTree = "<group>"; };
 		BBEDB89F268B0F38001C3F38 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
 		BBEDB8A5268B2F79001C3F38 /* SF Pro Text.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF Pro Text.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -41,6 +51,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB5B8759268E066800E4CBA4 /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				BB5B875C268E072900E4CBA4 /* Assets.swift */,
+				BB5B875D268E072900E4CBA4 /* Fonts.swift */,
+			);
+			path = Generated;
+			sourceTree = "<group>";
+		};
 		BB9EBD982685E0CD00BD5CF5 = {
 			isa = PBXGroup;
 			children = (
@@ -60,15 +79,25 @@
 		BB9EBDA32685E0CD00BD5CF5 /* period */ = {
 			isa = PBXGroup;
 			children = (
-				BBEDB89E268B0F15001C3F38 /* Resources */,
-				BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */,
-				BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */,
-				BB9EBDA82685E0CD00BD5CF5 /* PeriodViewController.swift */,
+				BBA89F87268CA13800FFA128 /* PeriodView.swift */,
+				BBBD6A4B268B6587009006EA /* PeriodViewController.swift */,
 				BB1E36792689D93000762BB4 /* UITextField+Extension.swift */,
-				BB9EBDAF2685E0D700BD5CF5 /* LaunchScreen.storyboard */,
+				BB5B8759268E066800E4CBA4 /* Generated */,
+				BBEDB89E268B0F15001C3F38 /* Resources */,
+				BBBD6A46268B5703009006EA /* AppFiles */,
 				BB9EBDB22685E0D700BD5CF5 /* Info.plist */,
 			);
 			path = period;
+			sourceTree = "<group>";
+		};
+		BBBD6A46268B5703009006EA /* AppFiles */ = {
+			isa = PBXGroup;
+			children = (
+				BB9EBDA42685E0CD00BD5CF5 /* AppDelegate.swift */,
+				BB9EBDA62685E0CD00BD5CF5 /* SceneDelegate.swift */,
+				BB9EBDAF2685E0D700BD5CF5 /* LaunchScreen.storyboard */,
+			);
+			path = AppFiles;
 			sourceTree = "<group>";
 		};
 		BBEDB89E268B0F15001C3F38 /* Resources */ = {
@@ -76,6 +105,7 @@
 			children = (
 				BBEDB8A1268B15B2001C3F38 /* Fonts */,
 				BB9EBDAD2685E0D600BD5CF5 /* Assets.xcassets */,
+				BB5B8768268E12B800E4CBA4 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -96,6 +126,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB9EBDB52685E0D700BD5CF5 /* Build configuration list for PBXNativeTarget "period" */;
 			buildPhases = (
+				BB5B8755268E00F200E4CBA4 /* Swiftgen */,
 				BB9EBD9D2685E0CD00BD5CF5 /* Sources */,
 				BB9EBD9E2685E0CD00BD5CF5 /* Frameworks */,
 				BB9EBD9F2685E0CD00BD5CF5 /* Resources */,
@@ -130,6 +161,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = BB9EBD982685E0CD00BD5CF5;
 			productRefGroup = BB9EBDA22685E0CD00BD5CF5 /* Products */;
@@ -150,18 +182,43 @@
 				BBEDB8A3268B2B5D001C3F38 /* Inter-Regular.otf in Resources */,
 				BBEDB8A6268B2F79001C3F38 /* SF Pro Text.ttf in Resources */,
 				BB9EBDAE2685E0D600BD5CF5 /* Assets.xcassets in Resources */,
+				BB5B8766268E12B800E4CBA4 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		BB5B8755268E00F200E4CBA4 /* Swiftgen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftgen;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "swiftgen config run --config swiftgen/swiftgen.yml\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BB9EBD9D2685E0CD00BD5CF5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB9EBDA92685E0CD00BD5CF5 /* PeriodViewController.swift in Sources */,
+				BB5B875F268E072900E4CBA4 /* Fonts.swift in Sources */,
+				BBBD6A4C268B6587009006EA /* PeriodViewController.swift in Sources */,
 				BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */,
+				BB5B875E268E072900E4CBA4 /* Assets.swift in Sources */,
+				BBA89F88268CA13800FFA128 /* PeriodView.swift in Sources */,
 				BB9EBDA52685E0CD00BD5CF5 /* AppDelegate.swift in Sources */,
 				BB9EBDA72685E0CD00BD5CF5 /* SceneDelegate.swift in Sources */,
 			);
@@ -170,10 +227,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		BB5B8768268E12B800E4CBA4 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BB5B8767268E12B800E4CBA4 /* en */,
+				BB5B876B268E12DB00E4CBA4 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		BB9EBDAF2685E0D700BD5CF5 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				BB9EBDB02685E0D700BD5CF5 /* Base */,
+				BB5B876A268E12DB00E4CBA4 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -185,6 +252,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -246,6 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

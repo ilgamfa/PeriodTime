@@ -1,0 +1,17 @@
+output_dir: ../period/Generated/
+xcassets:
+  inputs: ../period/Resources/Assets.xcassets
+  outputs:
+    templateName: swift5
+    output: Assets.swift
+strings:
+    inputs:
+        - ../period/Resources/ru.lproj/Localizable.strings
+    outputs:
+      templateName: structured-swift5
+      output: Strings.swift
+fonts:
+  inputs: ../period/Resources/Fonts
+  outputs:
+    templatePath: ../swiftgen/swift5.stencil
+    output: Fonts.swift
