@@ -30,6 +30,10 @@ final class PeriodView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .darkGray
+        datePicker.backgroundColor = .white
+        datePicker.isHidden = true
+        toolBarFrom.isHidden = true
+        toolBarTo.isHidden = true
         setupViews()
         setupConstraints()
         addActions()
@@ -92,7 +96,6 @@ final class PeriodView: UIView {
         button.titleLabel?.font = Configurator().fontInterRegular16
         button.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
         button.setTitleColor(UIColor(named: "dateColor"), for: .normal)
-        button.setTitleColor(.black, for: .normal)
         button.contentHorizontalAlignment = .left
         button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         return button
@@ -132,6 +135,57 @@ final class PeriodView: UIView {
         return chooseButton
     }()
     
+    private let datePicker: UIDatePicker = {
+        let screenWidth = UIScreen.main.bounds.width
+        let datePicker = UIDatePicker()
+
+        
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "ru_RU")
+
+        if #available(iOS 14, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.sizeToFit()
+        }
+        return datePicker
+    }()
+
+    private let toolBarFrom: UIToolbar = {
+        let screenWidth = UIScreen.main.bounds.width
+        let dateOfBeginning = UIBarButtonItem(title: "Дата начала:", style: .plain, target: nil, action: nil)
+        dateOfBeginning.isEnabled = false
+
+        let toolBar = UIToolbar()
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClick))
+        barButton.tintColor = UIColor(named: "primary 700")
+        barButton.setTitleTextAttributes(
+            [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
+
+        toolBar.setItems([dateOfBeginning, flexible, barButton], animated: false)
+
+       return toolBar
+    }()
+    private let toolBarTo: UIToolbar = {
+        let screenWidth = UIScreen.main.bounds.width
+        
+        let dateOfEnding = UIBarButtonItem(title: "Дата конца:", style: .plain, target: nil, action: nil)
+        dateOfEnding.isEnabled = false
+
+        let toolBar = UIToolbar()
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClick))
+        barButton.tintColor = UIColor(named: "primary 700")
+        barButton.setTitleTextAttributes(
+            [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
+
+        toolBar.setItems([dateOfEnding, flexible, barButton], animated: false)
+
+       return toolBar
+    }()
+    
+    
+    
     //MARK: - functions
     
     private func setupViews() {
@@ -142,6 +196,10 @@ final class PeriodView: UIView {
         self.addSubview(dateButtonFrom)
         self.addSubview(dateButtonTo)
         self.addSubview(chooseButton)
+        self.addSubview(datePicker)
+        self.addSubview(toolBarFrom)
+        self.addSubview(toolBarTo)
+      
     }
 
     private func addActions() {
@@ -216,6 +274,32 @@ final class PeriodView: UIView {
             chooseButton.heightAnchor.constraint(equalToConstant: Configurator().heightThirdLevel)
         ])
         
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            datePicker.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            datePicker.heightAnchor.constraint(equalToConstant: 270)
+        ])
+        
+        toolBarFrom.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarFrom.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
+            toolBarFrom.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            toolBarFrom.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            toolBarFrom.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        toolBarTo.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarTo.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
+            toolBarTo.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            toolBarTo.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            toolBarTo.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        
+        
     }
     // MARK: - Handlers
     
@@ -227,7 +311,7 @@ final class PeriodView: UIView {
             self.dateTextFieldFrom.text = dateformatter.string(from: datePicker.date)
         }
         self.dateTextFieldFrom.resignFirstResponder()
-        
+
     }
     @objc func tapDoneInTo() {
         if let datePicker = self.dateTextFieldTo.inputView as? UIDatePicker {
@@ -251,15 +335,28 @@ final class PeriodView: UIView {
     @objc func tappedChooseButton() {
         self.dateButtonFrom.resignFirstResponder()
         self.dateButtonTo.resignFirstResponder()
+        datePicker.isHidden = true
+        toolBarFrom.isHidden = true
+        toolBarTo.isHidden = true
 //        self.dateTextFieldTo.resignFirstResponder()
 //        self.dateTextFieldFrom.resignFirstResponder()
     }
     
+   
+    
     @objc func tappedDateButtonFrom() {
-        
+        datePicker.isHidden = false
+        toolBarFrom.isHidden = false
+        toolBarTo.isHidden = true
+    }
+
+    @objc func tappedDateButtonTo() {
+        datePicker.isHidden = false
+        toolBarTo.isHidden = false
+        toolBarFrom.isHidden = true
     }
     
-    @objc func tappedDateButtonTo() {
+    @objc func tapDoneButtonClick() {
         
     }
     
