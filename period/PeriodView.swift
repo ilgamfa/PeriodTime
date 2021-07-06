@@ -85,6 +85,31 @@ final class PeriodView: UIView {
         return dateTextFieldFrom
     }()
     
+    private let dateButtonFrom: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = Configurator().cornerRadius
+        button.setTitle("Дата от", for: .normal)
+        button.titleLabel?.font = Configurator().fontInterRegular16
+        button.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+        button.setTitleColor(UIColor(named: "dateColor"), for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        return button
+    }()
+    
+    private let dateButtonTo: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = Configurator().cornerRadius
+        button.setTitle("Дата до", for: .normal)
+        button.titleLabel?.font = Configurator().fontInterRegular16
+        button.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+        button.setTitleColor(UIColor(named: "dateColor"), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        return button
+    }()
+    
     private let dateTextFieldTo: UITextField = {
         let dateTextFieldTo = UITextField()
         dateTextFieldTo.layer.cornerRadius = Configurator().cornerRadius
@@ -114,21 +139,25 @@ final class PeriodView: UIView {
         self.addSubview(clearButton)
         self.addSubview(periodLabel)
         self.addSubview(closeButton)
-        self.addSubview(dateTextFieldFrom)
-        self.addSubview(dateTextFieldTo)
+        self.addSubview(dateButtonFrom)
+        self.addSubview(dateButtonTo)
         self.addSubview(chooseButton)
     }
 
     private func addActions() {
         clearButton.addTarget(self, action: #selector(tappedClearButton), for: .touchUpInside)
         chooseButton.addTarget(self, action: #selector(tappedChooseButton), for: .touchUpInside)
+        
+        dateButtonFrom.addTarget(self, action: #selector(tappedDateButtonFrom), for: .touchUpInside)
+        dateButtonTo.addTarget(self, action: #selector(tappedDateButtonTo), for: .touchUpInside)
+        
         let dateOfBeginning = UIBarButtonItem(title: "Дата начала:", style: .plain, target: nil, action: nil)
         dateOfBeginning.isEnabled = false
         let dateOfEnding = UIBarButtonItem(title: "Дата конца:", style: .plain, target: nil, action: nil)
         dateOfEnding.isEnabled = false
-        dateTextFieldFrom.setInputViewDatePicker(target: self, selector: #selector(tapDoneInFrom), dateOf:dateOfBeginning )
+//        dateTextFieldFrom.setInputViewDatePicker(target: self, selector: #selector(tapDoneInFrom), dateOf:dateOfBeginning )
         
-        dateTextFieldTo.setInputViewDatePicker(target: self, selector: #selector(tapDoneInTo), dateOf:dateOfEnding)
+//        dateTextFieldTo.setInputViewDatePicker(target: self, selector: #selector(tapDoneInTo), dateOf:dateOfEnding)
     }
     
     private func setupConstraints() {
@@ -163,25 +192,25 @@ final class PeriodView: UIView {
             closeButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
-        dateTextFieldFrom.translatesAutoresizingMaskIntoConstraints = false
+        dateButtonFrom.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateTextFieldFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: Configurator().dateTopOffset),
-            dateTextFieldFrom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
-            dateTextFieldFrom.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Configurator().centerOffset),
-            dateTextFieldFrom.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
+            dateButtonFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: Configurator().dateTopOffset),
+            dateButtonFrom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
+            dateButtonFrom.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Configurator().centerOffset),
+            dateButtonFrom.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
         ])
         
-        dateTextFieldTo.translatesAutoresizingMaskIntoConstraints = false
+        dateButtonTo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateTextFieldTo.topAnchor.constraint(equalTo: dateTextFieldFrom.topAnchor),
-            dateTextFieldTo.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Configurator().centerOffset),
-            dateTextFieldTo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
-            dateTextFieldTo.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
+            dateButtonTo.topAnchor.constraint(equalTo: dateButtonFrom.topAnchor),
+            dateButtonTo.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Configurator().centerOffset),
+            dateButtonTo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
+            dateButtonTo.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
         ])
         
         chooseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chooseButton.topAnchor.constraint(equalTo: dateTextFieldFrom.bottomAnchor, constant: Configurator().chooseBtnTopOffset),
+            chooseButton.topAnchor.constraint(equalTo: dateButtonFrom.bottomAnchor, constant: Configurator().chooseBtnTopOffset),
             chooseButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
             chooseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
             chooseButton.heightAnchor.constraint(equalToConstant: Configurator().heightThirdLevel)
@@ -210,13 +239,28 @@ final class PeriodView: UIView {
         self.dateTextFieldTo.resignFirstResponder()
     }
     
+
     @objc func tappedClearButton() {
-        dateTextFieldFrom.text = ""
-        dateTextFieldTo.text = ""
+        dateButtonFrom.setTitle("Дата от", for: .normal)
+        dateButtonTo.setTitle("Дата до", for: .normal)
+
+//        dateTextFieldFrom.text = ""
+//        dateTextFieldTo.text = ""
     }
     
     @objc func tappedChooseButton() {
-        self.dateTextFieldTo.resignFirstResponder()
-        self.dateTextFieldFrom.resignFirstResponder()
+        self.dateButtonFrom.resignFirstResponder()
+        self.dateButtonTo.resignFirstResponder()
+//        self.dateTextFieldTo.resignFirstResponder()
+//        self.dateTextFieldFrom.resignFirstResponder()
     }
+    
+    @objc func tappedDateButtonFrom() {
+        
+    }
+    
+    @objc func tappedDateButtonTo() {
+        
+    }
+    
 }
