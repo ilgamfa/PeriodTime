@@ -78,16 +78,16 @@ final class PeriodView: UIView {
         return button
     }()
     
-    private let dateTextFieldFrom: UITextField = {
-        let dateTextFieldFrom = UITextField()
-        dateTextFieldFrom.layer.cornerRadius = Configurator().cornerRadius
-        dateTextFieldFrom.placeholder = "Дата от"
-        dateTextFieldFrom.font = Configurator().fontInterRegular16
-        dateTextFieldFrom.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-        dateTextFieldFrom.setLeftPaddingPoints(Configurator().paddingPoints)
-        dateTextFieldFrom.setRightPaddingPoints(Configurator().paddingPoints)
-        return dateTextFieldFrom
-    }()
+//    private let dateTextFieldFrom: UITextField = {
+//        let dateTextFieldFrom = UITextField()
+//        dateTextFieldFrom.layer.cornerRadius = Configurator().cornerRadius
+//        dateTextFieldFrom.placeholder = "Дата от"
+//        dateTextFieldFrom.font = Configurator().fontInterRegular16
+//        dateTextFieldFrom.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+//        dateTextFieldFrom.setLeftPaddingPoints(Configurator().paddingPoints)
+//        dateTextFieldFrom.setRightPaddingPoints(Configurator().paddingPoints)
+//        return dateTextFieldFrom
+//    }()
     
     private let dateButtonFrom: UIButton = {
         let button = UIButton()
@@ -113,16 +113,16 @@ final class PeriodView: UIView {
         return button
     }()
     
-    private let dateTextFieldTo: UITextField = {
-        let dateTextFieldTo = UITextField()
-        dateTextFieldTo.layer.cornerRadius = Configurator().cornerRadius
-        dateTextFieldTo.placeholder = "Дата до"
-        dateTextFieldTo.font = Configurator().fontInterRegular16
-        dateTextFieldTo.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-        dateTextFieldTo.setLeftPaddingPoints(Configurator().paddingPoints)
-        dateTextFieldTo.setRightPaddingPoints(Configurator().paddingPoints)
-        return dateTextFieldTo
-    }()
+//    private let dateTextFieldTo: UITextField = {
+//        let dateTextFieldTo = UITextField()
+//        dateTextFieldTo.layer.cornerRadius = Configurator().cornerRadius
+//        dateTextFieldTo.placeholder = "Дата до"
+//        dateTextFieldTo.font = Configurator().fontInterRegular16
+//        dateTextFieldTo.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+//        dateTextFieldTo.setLeftPaddingPoints(Configurator().paddingPoints)
+//        dateTextFieldTo.setRightPaddingPoints(Configurator().paddingPoints)
+//        return dateTextFieldTo
+//    }()
     
     private let chooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
@@ -157,7 +157,7 @@ final class PeriodView: UIView {
 
         let toolBar = UIToolbar()
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClick))
+        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClickFrom))
         barButton.tintColor = UIColor(named: "primary 700")
         barButton.setTitleTextAttributes(
             [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
@@ -174,7 +174,7 @@ final class PeriodView: UIView {
 
         let toolBar = UIToolbar()
         let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClick))
+        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClickTo))
         barButton.tintColor = UIColor(named: "primary 700")
         barButton.setTitleTextAttributes(
             [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
@@ -303,33 +303,34 @@ final class PeriodView: UIView {
     }
     // MARK: - Handlers
     
-    @objc func tapDoneInFrom() {
-        if let datePicker = self.dateTextFieldFrom.inputView as? UIDatePicker {
-            let dateformatter = DateFormatter()
-            dateformatter.locale = Locale(identifier: "ru-RU")
-            dateformatter.dateStyle = .short
-            self.dateTextFieldFrom.text = dateformatter.string(from: datePicker.date)
-        }
-        self.dateTextFieldFrom.resignFirstResponder()
-
-    }
-    @objc func tapDoneInTo() {
-        if let datePicker = self.dateTextFieldTo.inputView as? UIDatePicker {
-            let dateformatter = DateFormatter()
-            dateformatter.locale = Locale(identifier: "ru-RU")
-            dateformatter.dateStyle = .short
-            self.dateTextFieldTo.text = dateformatter.string(from: datePicker.date)
-        }
-        self.dateTextFieldTo.resignFirstResponder()
-    }
+//    @objc func tapDoneInFrom() {
+//        if let datePicker = self.dateTextFieldFrom.inputView as? UIDatePicker {
+//            let dateformatter = DateFormatter()
+//            dateformatter.locale = Locale(identifier: "ru-RU")
+//            dateformatter.dateStyle = .short
+//            self.dateTextFieldFrom.text = dateformatter.string(from: datePicker.date)
+//        }
+//        self.dateTextFieldFrom.resignFirstResponder()
+//
+//    }
+//    @objc func tapDoneInTo() {
+//        if let datePicker = self.dateTextFieldTo.inputView as? UIDatePicker {
+//            let dateformatter = DateFormatter()
+//            dateformatter.locale = Locale(identifier: "ru-RU")
+//            dateformatter.dateStyle = .short
+//            self.dateTextFieldTo.text = dateformatter.string(from: datePicker.date)
+//        }
+//        self.dateTextFieldTo.resignFirstResponder()
+//    }
     
 
     @objc func tappedClearButton() {
         dateButtonFrom.setTitle("Дата от", for: .normal)
+        dateButtonFrom.setTitleColor(UIColor(named: "dateColor"), for: .normal)
+        
         dateButtonTo.setTitle("Дата до", for: .normal)
+        dateButtonTo.setTitleColor(UIColor(named: "dateColor"), for: .normal)
 
-//        dateTextFieldFrom.text = ""
-//        dateTextFieldTo.text = ""
     }
     
     @objc func tappedChooseButton() {
@@ -338,8 +339,6 @@ final class PeriodView: UIView {
         datePicker.isHidden = true
         toolBarFrom.isHidden = true
         toolBarTo.isHidden = true
-//        self.dateTextFieldTo.resignFirstResponder()
-//        self.dateTextFieldFrom.resignFirstResponder()
     }
     
    
@@ -356,8 +355,23 @@ final class PeriodView: UIView {
         toolBarFrom.isHidden = true
     }
     
-    @objc func tapDoneButtonClick() {
+    @objc func tapDoneButtonClickFrom() {
         
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "ru-RU")
+        dateformatter.dateStyle = .short
+        let date = dateformatter.string(from: datePicker.date)
+        dateButtonFrom.setTitle(date, for: .normal)
+        dateButtonFrom.setTitleColor(.black, for: .normal)
+    }
+    
+    @objc func tapDoneButtonClickTo() {
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "ru-RU")
+        dateformatter.dateStyle = .short
+        let date = dateformatter.string(from: datePicker.date)
+        dateButtonTo.setTitle(date, for: .normal)
+        dateButtonTo.setTitleColor(.black, for: .normal)
     }
     
 }
