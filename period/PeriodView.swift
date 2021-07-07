@@ -37,6 +37,7 @@ final class PeriodView: UIView {
         setupViews()
         setupConstraints()
         addActions()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -47,7 +48,22 @@ final class PeriodView: UIView {
     
 
     //MARK: - variables
-
+    private var correctDatePeriod: Bool = {
+       let correctDatePeriod = Bool()
+        return correctDatePeriod
+    }()
+    
+    private var dateFrom: Date = {
+        let dateFrom = Date()
+        return dateFrom
+    }()
+    
+    private var dateTo: Date = {
+        let dateTo = Date()
+        return dateTo
+    }()
+    
+    
     private let contentView: UIView = {
         let contentView = UIView(frame: .zero)
         contentView.backgroundColor = .white
@@ -78,16 +94,6 @@ final class PeriodView: UIView {
         return button
     }()
     
-//    private let dateTextFieldFrom: UITextField = {
-//        let dateTextFieldFrom = UITextField()
-//        dateTextFieldFrom.layer.cornerRadius = Configurator().cornerRadius
-//        dateTextFieldFrom.placeholder = "Дата от"
-//        dateTextFieldFrom.font = Configurator().fontInterRegular16
-//        dateTextFieldFrom.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-//        dateTextFieldFrom.setLeftPaddingPoints(Configurator().paddingPoints)
-//        dateTextFieldFrom.setRightPaddingPoints(Configurator().paddingPoints)
-//        return dateTextFieldFrom
-//    }()
     
     private let dateButtonFrom: UIButton = {
         let button = UIButton()
@@ -112,17 +118,7 @@ final class PeriodView: UIView {
         button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         return button
     }()
-    
-//    private let dateTextFieldTo: UITextField = {
-//        let dateTextFieldTo = UITextField()
-//        dateTextFieldTo.layer.cornerRadius = Configurator().cornerRadius
-//        dateTextFieldTo.placeholder = "Дата до"
-//        dateTextFieldTo.font = Configurator().fontInterRegular16
-//        dateTextFieldTo.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-//        dateTextFieldTo.setLeftPaddingPoints(Configurator().paddingPoints)
-//        dateTextFieldTo.setRightPaddingPoints(Configurator().paddingPoints)
-//        return dateTextFieldTo
-//    }()
+
     
     private let chooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
@@ -183,8 +179,7 @@ final class PeriodView: UIView {
 
        return toolBar
     }()
-    
-    
+
     
     //MARK: - functions
     
@@ -199,7 +194,6 @@ final class PeriodView: UIView {
         self.addSubview(datePicker)
         self.addSubview(toolBarFrom)
         self.addSubview(toolBarTo)
-      
     }
 
     private func addActions() {
@@ -208,14 +202,7 @@ final class PeriodView: UIView {
         
         dateButtonFrom.addTarget(self, action: #selector(tappedDateButtonFrom), for: .touchUpInside)
         dateButtonTo.addTarget(self, action: #selector(tappedDateButtonTo), for: .touchUpInside)
-        
-        let dateOfBeginning = UIBarButtonItem(title: "Дата начала:", style: .plain, target: nil, action: nil)
-        dateOfBeginning.isEnabled = false
-        let dateOfEnding = UIBarButtonItem(title: "Дата конца:", style: .plain, target: nil, action: nil)
-        dateOfEnding.isEnabled = false
-//        dateTextFieldFrom.setInputViewDatePicker(target: self, selector: #selector(tapDoneInFrom), dateOf:dateOfBeginning )
-        
-//        dateTextFieldTo.setInputViewDatePicker(target: self, selector: #selector(tapDoneInTo), dateOf:dateOfEnding)
+
     }
     
     private func setupConstraints() {
@@ -302,27 +289,6 @@ final class PeriodView: UIView {
         
     }
     // MARK: - Handlers
-    
-//    @objc func tapDoneInFrom() {
-//        if let datePicker = self.dateTextFieldFrom.inputView as? UIDatePicker {
-//            let dateformatter = DateFormatter()
-//            dateformatter.locale = Locale(identifier: "ru-RU")
-//            dateformatter.dateStyle = .short
-//            self.dateTextFieldFrom.text = dateformatter.string(from: datePicker.date)
-//        }
-//        self.dateTextFieldFrom.resignFirstResponder()
-//
-//    }
-//    @objc func tapDoneInTo() {
-//        if let datePicker = self.dateTextFieldTo.inputView as? UIDatePicker {
-//            let dateformatter = DateFormatter()
-//            dateformatter.locale = Locale(identifier: "ru-RU")
-//            dateformatter.dateStyle = .short
-//            self.dateTextFieldTo.text = dateformatter.string(from: datePicker.date)
-//        }
-//        self.dateTextFieldTo.resignFirstResponder()
-//    }
-    
 
     @objc func tappedClearButton() {
         dateButtonFrom.setTitle("Дата от", for: .normal)
@@ -339,6 +305,19 @@ final class PeriodView: UIView {
         datePicker.isHidden = true
         toolBarFrom.isHidden = true
         toolBarTo.isHidden = true
+        print("dateFrom: \(dateFrom)")
+        print("dateTo: \(dateTo)")
+        print(dateFrom < dateTo)
+        
+        if dateFrom > dateTo {
+            correctDatePeriod = false
+        }
+        if dateFrom > dateTo {
+            let alert = UIAlertController(title: "Проверь корректность введенных данных!", message: "'Дата до' не может быть раньше 'Даты от'", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Исправить", style: .default, handler: nil))
+            UIApplication.shared.windows.last?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+        
     }
     
    
@@ -360,6 +339,7 @@ final class PeriodView: UIView {
         let dateformatter = DateFormatter()
         dateformatter.locale = Locale(identifier: "ru-RU")
         dateformatter.dateStyle = .short
+        dateFrom = datePicker.date
         let date = dateformatter.string(from: datePicker.date)
         dateButtonFrom.setTitle(date, for: .normal)
         dateButtonFrom.setTitleColor(.black, for: .normal)
@@ -369,9 +349,12 @@ final class PeriodView: UIView {
         let dateformatter = DateFormatter()
         dateformatter.locale = Locale(identifier: "ru-RU")
         dateformatter.dateStyle = .short
+        dateTo = datePicker.date
         let date = dateformatter.string(from: datePicker.date)
         dateButtonTo.setTitle(date, for: .normal)
         dateButtonTo.setTitleColor(.black, for: .normal)
+        
+        
     }
     
 }

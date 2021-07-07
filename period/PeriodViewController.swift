@@ -15,11 +15,8 @@ final class PeriodViewController: UIViewController {
     }
     
     override func loadView() {
-
-
         self.view = PeriodView(frame: UIScreen.main.bounds)
 //        self.view = LaunchView(frame: UIScreen.main.bounds)
-    }
-
+       }
 
 }
