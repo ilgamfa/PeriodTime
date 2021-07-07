@@ -30,9 +30,14 @@ final class PeriodView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .darkGray
+        datePicker.backgroundColor = .white
+        datePicker.isHidden = true
+        toolBarFrom.isHidden = true
+        toolBarTo.isHidden = true
         setupViews()
         setupConstraints()
         addActions()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +48,22 @@ final class PeriodView: UIView {
     
 
     //MARK: - variables
-
+    private var correctDatePeriod: Bool = {
+       let correctDatePeriod = Bool()
+        return correctDatePeriod
+    }()
+    
+    private var dateFrom: Date = {
+        let dateFrom = Date()
+        return dateFrom
+    }()
+    
+    private var dateTo: Date = {
+        let dateTo = Date()
+        return dateTo
+    }()
+    
+    
     private let contentView: UIView = {
         let contentView = UIView(frame: .zero)
         contentView.backgroundColor = .white
@@ -74,27 +94,31 @@ final class PeriodView: UIView {
         return button
     }()
     
-    private let dateTextFieldFrom: UITextField = {
-        let dateTextFieldFrom = UITextField()
-        dateTextFieldFrom.layer.cornerRadius = Configurator().cornerRadius
-        dateTextFieldFrom.placeholder = "Дата от"
-        dateTextFieldFrom.font = Configurator().fontInterRegular16
-        dateTextFieldFrom.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-        dateTextFieldFrom.setLeftPaddingPoints(Configurator().paddingPoints)
-        dateTextFieldFrom.setRightPaddingPoints(Configurator().paddingPoints)
-        return dateTextFieldFrom
+    
+    private let dateButtonFrom: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = Configurator().cornerRadius
+        button.setTitle("Дата от", for: .normal)
+        button.titleLabel?.font = Configurator().fontInterRegular16
+        button.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+        button.setTitleColor(UIColor(named: "dateColor"), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        return button
     }()
     
-    private let dateTextFieldTo: UITextField = {
-        let dateTextFieldTo = UITextField()
-        dateTextFieldTo.layer.cornerRadius = Configurator().cornerRadius
-        dateTextFieldTo.placeholder = "Дата до"
-        dateTextFieldTo.font = Configurator().fontInterRegular16
-        dateTextFieldTo.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
-        dateTextFieldTo.setLeftPaddingPoints(Configurator().paddingPoints)
-        dateTextFieldTo.setRightPaddingPoints(Configurator().paddingPoints)
-        return dateTextFieldTo
+    private let dateButtonTo: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = Configurator().cornerRadius
+        button.setTitle("Дата до", for: .normal)
+        button.titleLabel?.font = Configurator().fontInterRegular16
+        button.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
+        button.setTitleColor(UIColor(named: "dateColor"), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.contentEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        return button
     }()
+
     
     private let chooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
@@ -107,6 +131,56 @@ final class PeriodView: UIView {
         return chooseButton
     }()
     
+    private let datePicker: UIDatePicker = {
+        let screenWidth = UIScreen.main.bounds.width
+        let datePicker = UIDatePicker()
+
+        
+        datePicker.datePickerMode = .date
+        datePicker.locale = Locale(identifier: "ru_RU")
+
+        if #available(iOS 14, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.sizeToFit()
+        }
+        return datePicker
+    }()
+
+    private let toolBarFrom: UIToolbar = {
+        let screenWidth = UIScreen.main.bounds.width
+        let dateOfBeginning = UIBarButtonItem(title: "Дата начала:", style: .plain, target: nil, action: nil)
+        dateOfBeginning.isEnabled = false
+
+        let toolBar = UIToolbar()
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClickFrom))
+        barButton.tintColor = UIColor(named: "primary 700")
+        barButton.setTitleTextAttributes(
+            [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
+
+        toolBar.setItems([dateOfBeginning, flexible, barButton], animated: false)
+
+       return toolBar
+    }()
+    private let toolBarTo: UIToolbar = {
+        let screenWidth = UIScreen.main.bounds.width
+        
+        let dateOfEnding = UIBarButtonItem(title: "Дата конца:", style: .plain, target: nil, action: nil)
+        dateOfEnding.isEnabled = false
+
+        let toolBar = UIToolbar()
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClickTo))
+        barButton.tintColor = UIColor(named: "primary 700")
+        barButton.setTitleTextAttributes(
+            [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
+
+        toolBar.setItems([dateOfEnding, flexible, barButton], animated: false)
+
+       return toolBar
+    }()
+
+    
     //MARK: - functions
     
     private func setupViews() {
@@ -114,21 +188,21 @@ final class PeriodView: UIView {
         self.addSubview(clearButton)
         self.addSubview(periodLabel)
         self.addSubview(closeButton)
-        self.addSubview(dateTextFieldFrom)
-        self.addSubview(dateTextFieldTo)
+        self.addSubview(dateButtonFrom)
+        self.addSubview(dateButtonTo)
         self.addSubview(chooseButton)
+        self.addSubview(datePicker)
+        self.addSubview(toolBarFrom)
+        self.addSubview(toolBarTo)
     }
 
     private func addActions() {
         clearButton.addTarget(self, action: #selector(tappedClearButton), for: .touchUpInside)
         chooseButton.addTarget(self, action: #selector(tappedChooseButton), for: .touchUpInside)
-        let dateOfBeginning = UIBarButtonItem(title: "Дата начала:", style: .plain, target: nil, action: nil)
-        dateOfBeginning.isEnabled = false
-        let dateOfEnding = UIBarButtonItem(title: "Дата конца:", style: .plain, target: nil, action: nil)
-        dateOfEnding.isEnabled = false
-        dateTextFieldFrom.setInputViewDatePicker(target: self, selector: #selector(tapDoneInFrom), dateOf:dateOfBeginning )
         
-        dateTextFieldTo.setInputViewDatePicker(target: self, selector: #selector(tapDoneInTo), dateOf:dateOfEnding)
+        dateButtonFrom.addTarget(self, action: #selector(tappedDateButtonFrom), for: .touchUpInside)
+        dateButtonTo.addTarget(self, action: #selector(tappedDateButtonTo), for: .touchUpInside)
+
     }
     
     private func setupConstraints() {
@@ -163,60 +237,124 @@ final class PeriodView: UIView {
             closeButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
-        dateTextFieldFrom.translatesAutoresizingMaskIntoConstraints = false
+        dateButtonFrom.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateTextFieldFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: Configurator().dateTopOffset),
-            dateTextFieldFrom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
-            dateTextFieldFrom.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Configurator().centerOffset),
-            dateTextFieldFrom.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
+            dateButtonFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: Configurator().dateTopOffset),
+            dateButtonFrom.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
+            dateButtonFrom.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Configurator().centerOffset),
+            dateButtonFrom.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
         ])
         
-        dateTextFieldTo.translatesAutoresizingMaskIntoConstraints = false
+        dateButtonTo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            dateTextFieldTo.topAnchor.constraint(equalTo: dateTextFieldFrom.topAnchor),
-            dateTextFieldTo.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Configurator().centerOffset),
-            dateTextFieldTo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
-            dateTextFieldTo.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
+            dateButtonTo.topAnchor.constraint(equalTo: dateButtonFrom.topAnchor),
+            dateButtonTo.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Configurator().centerOffset),
+            dateButtonTo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
+            dateButtonTo.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
         ])
         
         chooseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            chooseButton.topAnchor.constraint(equalTo: dateTextFieldFrom.bottomAnchor, constant: Configurator().chooseBtnTopOffset),
+            chooseButton.topAnchor.constraint(equalTo: dateButtonFrom.bottomAnchor, constant: Configurator().chooseBtnTopOffset),
             chooseButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
             chooseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
             chooseButton.heightAnchor.constraint(equalToConstant: Configurator().heightThirdLevel)
         ])
         
-    }
-    // MARK: - Handlers
-    
-    @objc func tapDoneInFrom() {
-        if let datePicker = self.dateTextFieldFrom.inputView as? UIDatePicker {
-            let dateformatter = DateFormatter()
-            dateformatter.locale = Locale(identifier: "ru-RU")
-            dateformatter.dateStyle = .short
-            self.dateTextFieldFrom.text = dateformatter.string(from: datePicker.date)
-        }
-        self.dateTextFieldFrom.resignFirstResponder()
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            datePicker.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            datePicker.heightAnchor.constraint(equalToConstant: 270)
+        ])
+        
+        toolBarFrom.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarFrom.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
+            toolBarFrom.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            toolBarFrom.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            toolBarFrom.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        toolBarTo.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarTo.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
+            toolBarTo.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            toolBarTo.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            toolBarTo.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        
         
     }
-    @objc func tapDoneInTo() {
-        if let datePicker = self.dateTextFieldTo.inputView as? UIDatePicker {
-            let dateformatter = DateFormatter()
-            dateformatter.locale = Locale(identifier: "ru-RU")
-            dateformatter.dateStyle = .short
-            self.dateTextFieldTo.text = dateformatter.string(from: datePicker.date)
-        }
-        self.dateTextFieldTo.resignFirstResponder()
-    }
-    
+    // MARK: - Handlers
+
     @objc func tappedClearButton() {
-        dateTextFieldFrom.text = ""
-        dateTextFieldTo.text = ""
+        dateButtonFrom.setTitle("Дата от", for: .normal)
+        dateButtonFrom.setTitleColor(UIColor(named: "dateColor"), for: .normal)
+        
+        dateButtonTo.setTitle("Дата до", for: .normal)
+        dateButtonTo.setTitleColor(UIColor(named: "dateColor"), for: .normal)
+
     }
     
     @objc func tappedChooseButton() {
-        self.dateTextFieldTo.resignFirstResponder()
-        self.dateTextFieldFrom.resignFirstResponder()
+        self.dateButtonFrom.resignFirstResponder()
+        self.dateButtonTo.resignFirstResponder()
+        datePicker.isHidden = true
+        toolBarFrom.isHidden = true
+        toolBarTo.isHidden = true
+        print("dateFrom: \(dateFrom)")
+        print("dateTo: \(dateTo)")
+        print(dateFrom < dateTo)
+        
+        if dateFrom > dateTo {
+            correctDatePeriod = false
+        }
+        if dateFrom > dateTo {
+            let alert = UIAlertController(title: "Проверь корректность введенных данных!", message: "'Дата до' не может быть раньше 'Даты от'", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Исправить", style: .default, handler: nil))
+            UIApplication.shared.windows.last?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+        
     }
+    
+   
+    
+    @objc func tappedDateButtonFrom() {
+        datePicker.isHidden = false
+        toolBarFrom.isHidden = false
+        toolBarTo.isHidden = true
+    }
+
+    @objc func tappedDateButtonTo() {
+        datePicker.isHidden = false
+        toolBarTo.isHidden = false
+        toolBarFrom.isHidden = true
+    }
+    
+    @objc func tapDoneButtonClickFrom() {
+        
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "ru-RU")
+        dateformatter.dateStyle = .short
+        dateFrom = datePicker.date
+        let date = dateformatter.string(from: datePicker.date)
+        dateButtonFrom.setTitle(date, for: .normal)
+        dateButtonFrom.setTitleColor(.black, for: .normal)
+    }
+    
+    @objc func tapDoneButtonClickTo() {
+        let dateformatter = DateFormatter()
+        dateformatter.locale = Locale(identifier: "ru-RU")
+        dateformatter.dateStyle = .short
+        dateTo = datePicker.date
+        let date = dateformatter.string(from: datePicker.date)
+        dateButtonTo.setTitle(date, for: .normal)
+        dateButtonTo.setTitleColor(.black, for: .normal)
+        
+        
+    }
+    
 }
