@@ -43,15 +43,8 @@ final class PeriodView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-   
-    
 
     //MARK: - variables
-    private var correctDatePeriod: Bool = {
-       let correctDatePeriod = Bool()
-        return correctDatePeriod
-    }()
     
     private var dateFrom: Date = {
         let dateFrom = Date()
@@ -305,13 +298,7 @@ final class PeriodView: UIView {
         datePicker.isHidden = true
         toolBarFrom.isHidden = true
         toolBarTo.isHidden = true
-        print("dateFrom: \(dateFrom)")
-        print("dateTo: \(dateTo)")
-        print(dateFrom < dateTo)
         
-        if dateFrom > dateTo {
-            correctDatePeriod = false
-        }
         if dateFrom > dateTo {
             let alert = UIAlertController(title: "Проверь корректность введенных данных!", message: "'Дата до' не может быть раньше 'Даты от'", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Исправить", style: .default, handler: nil))
