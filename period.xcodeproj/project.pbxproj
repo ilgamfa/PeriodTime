@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB1E36792689D93000762BB4 /* UITextField+Extension.swift */; };
 		BB57D0FD269330FE00632253 /* launchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB57D0FC269330FE00632253 /* launchView.swift */; };
 		BB5B875E268E072900E4CBA4 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B875C268E072900E4CBA4 /* Assets.swift */; };
 		BB5B875F268E072900E4CBA4 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB5B875D268E072900E4CBA4 /* Fonts.swift */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BB1E36792689D93000762BB4 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		BB57D0FC269330FE00632253 /* launchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = launchView.swift; sourceTree = "<group>"; };
 		BB5B875C268E072900E4CBA4 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		BB5B875D268E072900E4CBA4 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 				BB57D0FC269330FE00632253 /* launchView.swift */,
 				BBA89F87268CA13800FFA128 /* PeriodView.swift */,
 				BBBD6A4B268B6587009006EA /* PeriodViewController.swift */,
-				BB1E36792689D93000762BB4 /* UITextField+Extension.swift */,
 				BB5B8759268E066800E4CBA4 /* Generated */,
 				BBEDB89E268B0F15001C3F38 /* Resources */,
 				BBBD6A46268B5703009006EA /* AppFiles */,
@@ -129,7 +126,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB9EBDB52685E0D700BD5CF5 /* Build configuration list for PBXNativeTarget "period" */;
 			buildPhases = (
-				BB5B8755268E00F200E4CBA4 /* Swiftgen */,
 				BB9EBD9D2685E0CD00BD5CF5 /* Sources */,
 				BB9EBD9E2685E0CD00BD5CF5 /* Frameworks */,
 				BB9EBD9F2685E0CD00BD5CF5 /* Resources */,
@@ -191,27 +187,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		BB5B8755268E00F200E4CBA4 /* Swiftgen */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Swiftgen;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "swiftgen config run --config swiftgen/swiftgen.yml\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		BB9EBD9D2685E0CD00BD5CF5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -220,7 +195,6 @@
 				BB5B875F268E072900E4CBA4 /* Fonts.swift in Sources */,
 				BBBD6A4C268B6587009006EA /* PeriodViewController.swift in Sources */,
 				BB57D0FD269330FE00632253 /* launchView.swift in Sources */,
-				BB1E367A2689D93000762BB4 /* UITextField+Extension.swift in Sources */,
 				BB5B875E268E072900E4CBA4 /* Assets.swift in Sources */,
 				BBA89F88268CA13800FFA128 /* PeriodView.swift in Sources */,
 				BB9EBDA52685E0CD00BD5CF5 /* AppDelegate.swift in Sources */,

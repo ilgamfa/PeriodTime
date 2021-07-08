@@ -7,36 +7,35 @@
 
 import UIKit
 
+protocol LaunchViewDelegate: AnyObject {
+    func tappedSetPeriodButton()
+}
+
 private extension LaunchView {
     struct Configurator {
-        let chooseBtnTopOffset: CGFloat = 24
-        let heightThirdLevel: CGFloat = 40
-        let dateTopOffset: CGFloat = 8
         let heightFirstLevel: CGFloat = 44
-        let heightSecondLevel: CGFloat = 52
-        let contentTopOffset: CGFloat = 102
+        let heightContentView: CGFloat = 80
         let cornerRadius: CGFloat = 8
         let boldSystemFont16 = UIFont.boldSystemFont(ofSize: 16)
         let boldSystemFont14 = UIFont.boldSystemFont(ofSize: 14)
         let fontInterRegular16 =  UIFont(name: "Inter-Regular", size: 16)
         let fontInterRegular14 =  UIFont(name: "Inter-Regular", size: 14)
         let sideOffset: CGFloat = 16
-        let topOffset: CGFloat = 14
-        let centerOffset: CGFloat = 4
-        let paddingPoints: CGFloat = 16
     }
 }
 
 final class LaunchView: UIView {
     private let configurator = Configurator()
-    private let periodView = PeriodView()
+    
+    weak var delegate: LaunchViewDelegate?
+    //private let periodView = PeriodView()
     
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .darkGray
-        periodView.isHidden = true
+        //periodView.isHidden = true
         setupViews()
         setupConstraints()
         addActions()
@@ -69,9 +68,9 @@ final class LaunchView: UIView {
     }()
 
     private func setupViews() {
-        self.addSubview(periodView)
-        self.addSubview(contentView)
-        self.addSubview(setPeriodButton)
+        //self.addSubview(periodView)
+        addSubview(contentView)
+        addSubview(setPeriodButton)
     }
     
     private func addActions() {
@@ -83,8 +82,8 @@ final class LaunchView: UIView {
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: Configurator().contentTopOffset),
-            contentView.bottomAnchor.constraint(equalTo: setPeriodButton.bottomAnchor, constant: Configurator().sideOffset),
+            contentView.heightAnchor.constraint(equalToConstant: Configurator().heightContentView),
+            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Configurator().sideOffset),
             contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Configurator().sideOffset),
             contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Configurator().sideOffset),
         ])
@@ -99,7 +98,6 @@ final class LaunchView: UIView {
     }
     
     @objc func tappedSetPeriodButton() {
-        periodView.isHidden = false
-        
+        delegate?.tappedSetPeriodButton()
     }
 }

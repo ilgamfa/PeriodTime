@@ -3,6 +3,12 @@
 
 import UIKit
 
+protocol PeriodViewDelegate: AnyObject {
+    func tappedClearButton()
+    func tappedDateButtonTo()
+    func tappedDateButtonFrom()
+}
+
 private extension PeriodView {
     struct Configurator {
         let chooseBtnTopOffset: CGFloat = 24
@@ -26,6 +32,7 @@ private extension PeriodView {
 final class PeriodView: UIView {
     
     private let configurator = Configurator()
+    weak var delegate: PeriodViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +44,6 @@ final class PeriodView: UIView {
         setupViews()
         setupConstraints()
         addActions()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -56,12 +62,10 @@ final class PeriodView: UIView {
         return dateTo
     }()
     
-    
     private let contentView: UIView = {
-        let contentView = UIView(frame: .zero)
+        let contentView = UIView()
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = Configurator().cornerRadius
-        
         return contentView
     }()
     
@@ -87,7 +91,6 @@ final class PeriodView: UIView {
         return button
     }()
     
-    
     private let dateButtonFrom: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = Configurator().cornerRadius
@@ -112,7 +115,6 @@ final class PeriodView: UIView {
         return button
     }()
 
-    
     private let chooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
         chooseButton.layer.cornerRadius = Configurator().cornerRadius
@@ -124,11 +126,57 @@ final class PeriodView: UIView {
         return chooseButton
     }()
     
+    private let toolBarFrom: UIView = {
+        let toolBarFrom = UIView()
+        toolBarFrom.backgroundColor = UIColor(named: "toolBarBackColor")
+        return toolBarFrom
+    }()
+    
+    private let toolBarTo: UIView = {
+        let toolBarFrom = UIView()
+        toolBarFrom.backgroundColor = UIColor(named: "toolBarBackColor")
+        return toolBarFrom
+    }()
+    
+    private let toolBarFromChooseButton: UIButton = {
+        let chooseButton = UIButton(type: .system)
+        chooseButton.setTitle("Выбрать", for: .normal)
+        chooseButton.titleLabel?.font = Configurator().fontInterRegular16
+        chooseButton.titleLabel?.font = Configurator().boldSystemFont16
+        chooseButton.setTitleColor(UIColor(named: "primary 700"), for: .normal)
+        chooseButton.addTarget(self, action: #selector(tapDoneButtonClickFrom), for: .touchUpInside)
+        return chooseButton
+    }()
+    
+    private let toolBarToChooseButton: UIButton = {
+        let chooseButton = UIButton(type: .system)
+        chooseButton.setTitle("Выбрать", for: .normal)
+        chooseButton.titleLabel?.font = Configurator().fontInterRegular16
+        chooseButton.titleLabel?.font = Configurator().boldSystemFont16
+        chooseButton.setTitleColor(UIColor(named: "primary 700"), for: .normal)
+        chooseButton.addTarget(self, action: #selector(tapDoneButtonClickTo), for: .touchUpInside)
+        return chooseButton
+    }()
+    
+    private let toolBarDateBeginning: UILabel = {
+        let label = UILabel()
+        label.text = "Дата начала:"
+        label.textColor = UIColor(named: "dateColor")
+        label.font =  Configurator().fontInterRegular14
+        return label
+    }()
+    
+    private let toolBarDateEnding: UILabel = {
+        let label = UILabel()
+        label.text = "Дата конца:"
+        label.textColor = UIColor(named: "dateColor")
+        label.font =  Configurator().fontInterRegular14
+        return label
+    }()
+    
     private let datePicker: UIDatePicker = {
         let screenWidth = UIScreen.main.bounds.width
         let datePicker = UIDatePicker()
-
-        
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ru_RU")
 
@@ -138,55 +186,28 @@ final class PeriodView: UIView {
         }
         return datePicker
     }()
-
-    private let toolBarFrom: UIToolbar = {
-        let screenWidth = UIScreen.main.bounds.width
-        let dateOfBeginning = UIBarButtonItem(title: "Дата начала:", style: .plain, target: nil, action: nil)
-        dateOfBeginning.isEnabled = false
-
-        let toolBar = UIToolbar()
-        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClickFrom))
-        barButton.tintColor = UIColor(named: "primary 700")
-        barButton.setTitleTextAttributes(
-            [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
-
-        toolBar.setItems([dateOfBeginning, flexible, barButton], animated: false)
-
-       return toolBar
-    }()
-    private let toolBarTo: UIToolbar = {
-        let screenWidth = UIScreen.main.bounds.width
-        
-        let dateOfEnding = UIBarButtonItem(title: "Дата конца:", style: .plain, target: nil, action: nil)
-        dateOfEnding.isEnabled = false
-
-        let toolBar = UIToolbar()
-        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let barButton = UIBarButtonItem(title: "Выбрать", style: .plain, target: target, action: #selector(tapDoneButtonClickTo))
-        barButton.tintColor = UIColor(named: "primary 700")
-        barButton.setTitleTextAttributes(
-            [.font : UIFont.systemFont(ofSize: 17, weight: .semibold)], for: .normal )
-
-        toolBar.setItems([dateOfEnding, flexible, barButton], animated: false)
-
-       return toolBar
-    }()
-
     
     //MARK: - functions
     
     private func setupViews() {
-        self.addSubview(contentView)
-        self.addSubview(clearButton)
-        self.addSubview(periodLabel)
-        self.addSubview(closeButton)
-        self.addSubview(dateButtonFrom)
-        self.addSubview(dateButtonTo)
-        self.addSubview(chooseButton)
-        self.addSubview(datePicker)
-        self.addSubview(toolBarFrom)
-        self.addSubview(toolBarTo)
+        addSubview(contentView)
+        
+        contentView.addSubview(clearButton)
+        contentView.addSubview(periodLabel)
+        contentView.addSubview(closeButton)
+        contentView.addSubview(dateButtonFrom)
+        contentView.addSubview(dateButtonTo)
+        contentView.addSubview(chooseButton)
+        
+        addSubview(datePicker)
+        addSubview(toolBarFrom)
+        addSubview(toolBarTo)
+        
+        toolBarFrom.addSubview(toolBarFromChooseButton)
+        toolBarFrom.addSubview(toolBarDateBeginning)
+        
+        toolBarTo.addSubview(toolBarToChooseButton)
+        toolBarTo.addSubview(toolBarDateEnding)
     }
 
     private func addActions() {
@@ -195,41 +216,39 @@ final class PeriodView: UIView {
         
         dateButtonFrom.addTarget(self, action: #selector(tappedDateButtonFrom), for: .touchUpInside)
         dateButtonTo.addTarget(self, action: #selector(tappedDateButtonTo), for: .touchUpInside)
-
     }
     
     private func setupConstraints() {
-        self.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: Configurator().contentTopOffset),
+            contentView.topAnchor.constraint(equalTo: topAnchor, constant: Configurator().contentTopOffset),
             contentView.bottomAnchor.constraint(equalTo: chooseButton.bottomAnchor, constant: Configurator().sideOffset),
-            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Configurator().sideOffset),
-            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Configurator().sideOffset),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Configurator().sideOffset),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Configurator().sideOffset),
         ])
         
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            clearButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().topOffset),
+            clearButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             clearButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
             clearButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
         periodLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            periodLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().topOffset),
-            periodLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            periodLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            periodLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             periodLabel.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
-        
+
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().topOffset),
-            closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
+            closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
             closeButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
-        
+
         dateButtonFrom.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             dateButtonFrom.topAnchor.constraint(equalTo: clearButton.bottomAnchor, constant: Configurator().dateTopOffset),
@@ -237,15 +256,15 @@ final class PeriodView: UIView {
             dateButtonFrom.trailingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -Configurator().centerOffset),
             dateButtonFrom.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
         ])
-        
+
         dateButtonTo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             dateButtonTo.topAnchor.constraint(equalTo: dateButtonFrom.topAnchor),
             dateButtonTo.leadingAnchor.constraint(equalTo: contentView.centerXAnchor, constant: Configurator().centerOffset),
             dateButtonTo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
-            dateButtonTo.heightAnchor.constraint(equalToConstant: Configurator().heightSecondLevel),
+            dateButtonTo.heightAnchor.constraint(equalTo: dateButtonFrom.heightAnchor),
         ])
-        
+
         chooseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             chooseButton.topAnchor.constraint(equalTo: dateButtonFrom.bottomAnchor, constant: Configurator().chooseBtnTopOffset),
@@ -253,43 +272,69 @@ final class PeriodView: UIView {
             chooseButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Configurator().sideOffset),
             chooseButton.heightAnchor.constraint(equalToConstant: Configurator().heightThirdLevel)
         ])
-        
+
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            datePicker.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            datePicker.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            datePicker.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            datePicker.bottomAnchor.constraint(equalTo: bottomAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: trailingAnchor),
             datePicker.heightAnchor.constraint(equalToConstant: 270)
         ])
-        
+//
         toolBarFrom.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             toolBarFrom.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
-            toolBarFrom.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            toolBarFrom.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            toolBarFrom.leadingAnchor.constraint(equalTo: leadingAnchor),
+            toolBarFrom.trailingAnchor.constraint(equalTo: trailingAnchor),
             toolBarFrom.heightAnchor.constraint(equalToConstant: 44)
+        ])
+
+        toolBarDateBeginning.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarDateBeginning.topAnchor.constraint(equalTo: toolBarFrom.topAnchor, constant: 15),
+            toolBarDateBeginning.leadingAnchor.constraint(equalTo: toolBarFrom.leadingAnchor, constant: 16),
+            toolBarDateBeginning.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: -11)
+        ])
+        
+        toolBarFromChooseButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarFromChooseButton.topAnchor.constraint(equalTo: toolBarFrom.topAnchor, constant: 11),
+            toolBarFromChooseButton.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: -11),
+            toolBarFromChooseButton.trailingAnchor.constraint(equalTo: toolBarFrom.trailingAnchor, constant: -16),
         ])
         
         toolBarTo.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             toolBarTo.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
-            toolBarTo.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            toolBarTo.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            toolBarTo.leadingAnchor.constraint(equalTo: leadingAnchor),
+            toolBarTo.trailingAnchor.constraint(equalTo: trailingAnchor),
             toolBarTo.heightAnchor.constraint(equalToConstant: 44)
         ])
         
+        toolBarDateEnding.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarDateEnding.topAnchor.constraint(equalTo: toolBarTo.topAnchor, constant: 15),
+            toolBarDateEnding.leadingAnchor.constraint(equalTo: toolBarTo.leadingAnchor, constant: 16),
+            toolBarDateEnding.bottomAnchor.constraint(equalTo: toolBarTo.bottomAnchor, constant: -11)
+        ])
+        
+        toolBarToChooseButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            toolBarToChooseButton.topAnchor.constraint(equalTo: toolBarTo.topAnchor),
+            toolBarToChooseButton.trailingAnchor.constraint(equalTo: toolBarTo.trailingAnchor),
+        ])
         
         
     }
     // MARK: - Handlers
 
     @objc func tappedClearButton() {
+        delegate?.tappedClearButton()
         dateButtonFrom.setTitle("Дата от", for: .normal)
         dateButtonFrom.setTitleColor(UIColor(named: "dateColor"), for: .normal)
         
         dateButtonTo.setTitle("Дата до", for: .normal)
         dateButtonTo.setTitleColor(UIColor(named: "dateColor"), for: .normal)
-
     }
     
     @objc func tappedChooseButton() {
@@ -304,25 +349,23 @@ final class PeriodView: UIView {
             alert.addAction(UIAlertAction(title: "Исправить", style: .default, handler: nil))
             UIApplication.shared.windows.last?.rootViewController?.present(alert, animated: true, completion: nil)
         }
-        
     }
     
-   
-    
     @objc func tappedDateButtonFrom() {
+        delegate?.tappedDateButtonFrom()
         datePicker.isHidden = false
         toolBarFrom.isHidden = false
         toolBarTo.isHidden = true
     }
 
     @objc func tappedDateButtonTo() {
+        delegate?.tappedDateButtonTo()
         datePicker.isHidden = false
         toolBarTo.isHidden = false
         toolBarFrom.isHidden = true
     }
     
     @objc func tapDoneButtonClickFrom() {
-        
         let dateformatter = DateFormatter()
         dateformatter.locale = Locale(identifier: "ru-RU")
         dateformatter.dateStyle = .short
@@ -340,8 +383,5 @@ final class PeriodView: UIView {
         let date = dateformatter.string(from: datePicker.date)
         dateButtonTo.setTitle(date, for: .normal)
         dateButtonTo.setTitleColor(.black, for: .normal)
-        
-        
     }
-    
 }
