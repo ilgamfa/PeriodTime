@@ -4,10 +4,9 @@
 import UIKit
 
 final class PeriodViewController: UIViewController {
-//    private var periodView: PeriodView { return self.view as! PeriodView }
-    private var periodView = PeriodView()
-    
-    
+
+    private var periodView = PeriodView(frame: UIScreen.main.bounds)
+    private var launchView = LaunchView(frame: UIScreen.main.bounds)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,8 +14,31 @@ final class PeriodViewController: UIViewController {
     }
     
     override func loadView() {
-        self.view = PeriodView(frame: UIScreen.main.bounds)
-//        self.view = LaunchView(frame: UIScreen.main.bounds)
+        self.view = launchView
+        launchView.delegate = self
+        view.addSubview(periodView)
+        periodView.delegate = self
+        periodView.isHidden = true
        }
+}
 
+extension PeriodViewController: LaunchViewDelegate {
+    func tappedSetPeriodButton() {
+        print(#function)
+        periodView.isHidden = !periodView.isHidden
+    }
+}
+
+extension PeriodViewController: PeriodViewDelegate {
+    func tappedDateButtonFrom() {
+        print(#function)
+    }
+    
+    func tappedDateButtonTo() {
+        print(#function)
+    }
+    
+    func tappedClearButton() {
+        print(#function)
+    }
 }
