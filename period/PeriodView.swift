@@ -11,11 +11,18 @@ protocol PeriodViewDelegate: AnyObject {
 
 private extension PeriodView {
     struct Configurator {
+        let toolBarItemTop: CGFloat = 15
+        let toolBarChooseTop: CGFloat = 11
+        let toolBarItemBottom: CGFloat = -11
+        let toolBarItemLeading: CGFloat = 16
+        let toolBarItemTrailing: CGFloat = -16
         let chooseBtnTopOffset: CGFloat = 24
+        let closeBtnSideOffset: CGFloat = -18
         let heightThirdLevel: CGFloat = 40
         let dateTopOffset: CGFloat = 8
         let heightFirstLevel: CGFloat = 44
         let heightSecondLevel: CGFloat = 52
+        let heightDatePicker: CGFloat = 270
         let contentTopOffset: CGFloat = 102
         let cornerRadius: CGFloat = 8
         let boldSystemFont16 = UIFont.boldSystemFont(ofSize: 16)
@@ -230,22 +237,22 @@ final class PeriodView: UIView {
         
         clearButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            clearButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            clearButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().dateTopOffset),
             clearButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Configurator().sideOffset),
             clearButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
         periodLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            periodLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
+            periodLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().dateTopOffset),
             periodLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             periodLabel.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
 
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -18),
+            closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Configurator().dateTopOffset),
+            closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Configurator().closeBtnSideOffset),
             closeButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
 
@@ -278,7 +285,7 @@ final class PeriodView: UIView {
             datePicker.bottomAnchor.constraint(equalTo: bottomAnchor),
             datePicker.leadingAnchor.constraint(equalTo: leadingAnchor),
             datePicker.trailingAnchor.constraint(equalTo: trailingAnchor),
-            datePicker.heightAnchor.constraint(equalToConstant: 270)
+            datePicker.heightAnchor.constraint(equalToConstant: Configurator().heightDatePicker)
         ])
 //
         toolBarFrom.translatesAutoresizingMaskIntoConstraints = false
@@ -286,21 +293,21 @@ final class PeriodView: UIView {
             toolBarFrom.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
             toolBarFrom.leadingAnchor.constraint(equalTo: leadingAnchor),
             toolBarFrom.trailingAnchor.constraint(equalTo: trailingAnchor),
-            toolBarFrom.heightAnchor.constraint(equalToConstant: 44)
+            toolBarFrom.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
 
         toolBarDateBeginning.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            toolBarDateBeginning.topAnchor.constraint(equalTo: toolBarFrom.topAnchor, constant: 15),
-            toolBarDateBeginning.leadingAnchor.constraint(equalTo: toolBarFrom.leadingAnchor, constant: 16),
-            toolBarDateBeginning.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: -11)
+            toolBarDateBeginning.topAnchor.constraint(equalTo: toolBarFrom.topAnchor, constant: Configurator().toolBarItemTop),
+            toolBarDateBeginning.leadingAnchor.constraint(equalTo: toolBarFrom.leadingAnchor, constant: Configurator().toolBarItemLeading),
+            toolBarDateBeginning.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: Configurator().toolBarItemBottom)
         ])
         
         toolBarFromChooseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            toolBarFromChooseButton.topAnchor.constraint(equalTo: toolBarFrom.topAnchor, constant: 11),
-            toolBarFromChooseButton.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: -11),
-            toolBarFromChooseButton.trailingAnchor.constraint(equalTo: toolBarFrom.trailingAnchor, constant: -16),
+            toolBarFromChooseButton.topAnchor.constraint(equalTo: toolBarFrom.topAnchor, constant: Configurator().toolBarChooseTop),
+            toolBarFromChooseButton.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: Configurator().toolBarItemBottom),
+            toolBarFromChooseButton.trailingAnchor.constraint(equalTo: toolBarFrom.trailingAnchor, constant: Configurator().toolBarItemTrailing),
         ])
         
         toolBarTo.translatesAutoresizingMaskIntoConstraints = false
@@ -308,21 +315,21 @@ final class PeriodView: UIView {
             toolBarTo.bottomAnchor.constraint(equalTo: datePicker.topAnchor),
             toolBarTo.leadingAnchor.constraint(equalTo: leadingAnchor),
             toolBarTo.trailingAnchor.constraint(equalTo: trailingAnchor),
-            toolBarTo.heightAnchor.constraint(equalToConstant: 44)
+            toolBarTo.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
         ])
         
         toolBarDateEnding.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            toolBarDateEnding.topAnchor.constraint(equalTo: toolBarTo.topAnchor, constant: 15),
-            toolBarDateEnding.leadingAnchor.constraint(equalTo: toolBarTo.leadingAnchor, constant: 16),
-            toolBarDateEnding.bottomAnchor.constraint(equalTo: toolBarTo.bottomAnchor, constant: -11)
+            toolBarDateEnding.topAnchor.constraint(equalTo: toolBarTo.topAnchor, constant: Configurator().toolBarItemTop),
+            toolBarDateEnding.leadingAnchor.constraint(equalTo: toolBarTo.leadingAnchor, constant: Configurator().toolBarItemLeading),
+            toolBarDateEnding.bottomAnchor.constraint(equalTo: toolBarTo.bottomAnchor, constant: Configurator().toolBarItemBottom)
         ])
         
         toolBarToChooseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            toolBarToChooseButton.topAnchor.constraint(equalTo: toolBarTo.topAnchor, constant: 11),
-            toolBarToChooseButton.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: -11),
-            toolBarToChooseButton.trailingAnchor.constraint(equalTo: toolBarTo.trailingAnchor, constant: -16),
+            toolBarToChooseButton.topAnchor.constraint(equalTo: toolBarTo.topAnchor, constant: Configurator().toolBarChooseTop),
+            toolBarToChooseButton.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant:Configurator().toolBarItemBottom),
+            toolBarToChooseButton.trailingAnchor.constraint(equalTo: toolBarTo.trailingAnchor, constant: Configurator().toolBarItemTrailing),
         ])
         
         
