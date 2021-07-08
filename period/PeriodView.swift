@@ -320,8 +320,9 @@ final class PeriodView: UIView {
         
         toolBarToChooseButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            toolBarToChooseButton.topAnchor.constraint(equalTo: toolBarTo.topAnchor),
-            toolBarToChooseButton.trailingAnchor.constraint(equalTo: toolBarTo.trailingAnchor),
+            toolBarToChooseButton.topAnchor.constraint(equalTo: toolBarTo.topAnchor, constant: 11),
+            toolBarToChooseButton.bottomAnchor.constraint(equalTo: toolBarFrom.bottomAnchor, constant: -11),
+            toolBarToChooseButton.trailingAnchor.constraint(equalTo: toolBarTo.trailingAnchor, constant: -16),
         ])
         
         
