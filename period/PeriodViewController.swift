@@ -3,6 +3,11 @@
 
 import UIKit
 
+protocol DataUpdateProtocol {
+    func onDataUpdate(dateFrom: String, dateTo: String)
+}
+
+
 final class PeriodViewController: UIViewController {
 
     private var periodView = PeriodView(frame: UIScreen.main.bounds)

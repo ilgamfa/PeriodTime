@@ -43,8 +43,9 @@ final class PeriodView: UIView {
     private var launchView = LaunchView(frame: UIScreen.main.bounds)
     
     private let configurator = Configurator()
+    
     weak var delegate: PeriodViewDelegate?
-//    weak var launchDelegate: LaunchViewDelegate?private var launchView = LaunchView(frame: UIScreen.main.bounds)
+    var updateDataDelegate: DataUpdateProtocol?
     
     override init(frame: CGRect) {
         
@@ -57,6 +58,7 @@ final class PeriodView: UIView {
         setupViews()
         setupConstraints()
         addActions()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -64,6 +66,7 @@ final class PeriodView: UIView {
     }
 
     //MARK: - variables
+    
     
     
     private var dateFrom: Date = {
@@ -346,7 +349,7 @@ final class PeriodView: UIView {
     // MARK: - Handlers
 
     @objc func tappedCloseButton() {
-        print(#function)
+        delegate?.tappedCloseButton()
         self.isHidden = true
         tappedClearButton()
     }
@@ -362,8 +365,6 @@ final class PeriodView: UIView {
     
     @objc func tappedChooseButton() {
         delegate?.tappedChooseButton()
-        self.dateButtonFrom.resignFirstResponder()
-        self.dateButtonTo.resignFirstResponder()
         datePicker.isHidden = true
         toolBarFrom.isHidden = true
         toolBarTo.isHidden = true
@@ -378,12 +379,11 @@ final class PeriodView: UIView {
             dateformatter.locale = Locale(identifier: "ru-RU")
             dateformatter.dateStyle = .short
             
+            let stringDateFrom = dateformatter.string(from: dateFrom)
+            let stringDateTo = dateformatter.string(from: dateTo)
             
+            updateDataDelegate?.onDataUpdate(dateFrom: stringDateFrom, dateTo: stringDateTo)
             
-//            let stringDateFrom = dateformatter.string(from: dateFrom)
-//            let stringDateTo = dateformatter.string(from: dateTo)
-    
-
             tappedCloseButton()
         }
         
@@ -424,10 +424,8 @@ final class PeriodView: UIView {
     }
 }
 
-extension PeriodView: LaunchViewDelegate {
-    func tappedSetPeriodButton() {
-        print(#function)
-    }
-    
-    
-}
+//extension PeriodView: LaunchViewDelegate {
+//    func tappedSetPeriodButton() {
+//        print(#function)
+//    }
+//}

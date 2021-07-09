@@ -9,8 +9,6 @@ import UIKit
 
 protocol LaunchViewDelegate: AnyObject {
     func tappedSetPeriodButton()
-//    func setDateLabelFrom(stringDate: String)
-//    func setDateLabelTo(stringDate: String)
 }
 
 private extension LaunchView {
@@ -27,10 +25,10 @@ private extension LaunchView {
 }
 
 final class LaunchView: UIView {
+    
     private let configurator = Configurator()
     
     weak var delegate: LaunchViewDelegate?
-//    weak var periodDelegate: PeriodViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,6 +49,7 @@ final class LaunchView: UIView {
         
         return contentView
     }()
+    
     
     private var dateLabelFrom: UILabel = {
         let label = UILabel(frame: .zero)
@@ -136,42 +135,16 @@ final class LaunchView: UIView {
         
 
     }
-    
-//    @objc func setDateLabelFrom(stringDate: String) {
-//        delegate?.setDateLabelFrom(stringDate: stringDate)
-////        dateLabelFrom.text? += stringDate
-//    }
-//
-//    @objc func setDateLabelTo(stringDate: String) {
-//        delegate?.setDateLabelTo(stringDate: stringDate)
-////        dateLabelTo.text? += stringDate
-//    }
-    
+
     @objc func tappedSetPeriodButton() {
         delegate?.tappedSetPeriodButton()
     }
+
 }
-//
-//extension LaunchView: PeriodViewDelegate {
-//    func tappedClearButton() {
-//        print(#function)
-//    }
-//
-//    func tappedCloseButton() {
-//        print(#function)
-//    }
-//
-//    func tappedDateButtonTo() {
-//        print(#function)
-//    }
-//
-//    func tappedDateButtonFrom() {
-//        print(#function)
-//    }
-//
-//    func tappedChooseButton() {
-//        print(#function)
-//    }
-//
-//
-//}
+    
+extension LaunchView: DataUpdateProtocol {
+    func onDataUpdate(dateFrom: String, dateTo: String) {
+        dateLabelFrom.text? += dateFrom
+        dateLabelTo.text? += dateTo
+    }
+}
