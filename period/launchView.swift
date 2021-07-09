@@ -9,11 +9,13 @@ import UIKit
 
 protocol LaunchViewDelegate: AnyObject {
     func tappedSetPeriodButton()
+//    func setDateLabelFrom(stringDate: String)
+//    func setDateLabelTo(stringDate: String)
 }
 
 private extension LaunchView {
     struct Configurator {
-        let heightFirstLevel: CGFloat = 44
+        let heightDateLabel: CGFloat = 44
         let heightContentView: CGFloat = 80
         let cornerRadius: CGFloat = 8
         let boldSystemFont16 = UIFont.boldSystemFont(ofSize: 16)
@@ -28,19 +30,14 @@ final class LaunchView: UIView {
     private let configurator = Configurator()
     
     weak var delegate: LaunchViewDelegate?
-    //private let periodView = PeriodView()
-    
-    
+//    weak var periodDelegate: PeriodViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .darkGray
-        //periodView.isHidden = true
         setupViews()
         setupConstraints()
         addActions()
-        
-        
     }
     
     required init?(coder: NSCoder) {
@@ -55,6 +52,30 @@ final class LaunchView: UIView {
         return contentView
     }()
     
+    private var dateLabelFrom: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.backgroundColor = UIColor(named: "dateColor")
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = Configurator().cornerRadius
+        label.text = "  Дата от: "
+        label.textAlignment = .left
+        label.tintColor = .black
+        label.font = Configurator().fontInterRegular16
+        return label
+    }()
+    
+    private var dateLabelTo: UILabel = {
+        let label = UILabel(frame: .zero)
+        label.backgroundColor = UIColor(named: "dateColor")
+        label.layer.masksToBounds = true
+        label.layer.cornerRadius = Configurator().cornerRadius
+        label.text = "  Дата до: "
+        label.textAlignment = .left
+        label.tintColor = .black
+        label.font = Configurator().fontInterRegular16
+        return label
+    }()
+    
     private let setPeriodButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = Configurator().cornerRadius
@@ -67,10 +88,12 @@ final class LaunchView: UIView {
 
     }()
 
+    
     private func setupViews() {
-        //self.addSubview(periodView)
         addSubview(contentView)
         addSubview(setPeriodButton)
+        addSubview(dateLabelFrom)
+        addSubview(dateLabelTo)
     }
     
     private func addActions() {
@@ -83,21 +106,72 @@ final class LaunchView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: Configurator().heightContentView),
-            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Configurator().sideOffset),
-            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Configurator().sideOffset),
-            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Configurator().sideOffset),
+            contentView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -Configurator().sideOffset),
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Configurator().sideOffset),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Configurator().sideOffset),
         ])
         
         setPeriodButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             setPeriodButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             setPeriodButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            setPeriodButton.heightAnchor.constraint(equalToConstant: Configurator().heightFirstLevel)
+            setPeriodButton.heightAnchor.constraint(equalToConstant: Configurator().heightDateLabel)
         ])
+        
+        dateLabelFrom.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dateLabelFrom.heightAnchor.constraint(equalToConstant: Configurator().heightDateLabel),
+            dateLabelFrom.bottomAnchor.constraint(equalTo: dateLabelTo.topAnchor, constant: -Configurator().sideOffset),
+            dateLabelFrom.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Configurator().sideOffset),
+            dateLabelFrom.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Configurator().sideOffset),
+        ])
+        
+        dateLabelTo.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            dateLabelTo.heightAnchor.constraint(equalToConstant: Configurator().heightDateLabel),
+            dateLabelTo.bottomAnchor.constraint(equalTo: contentView.topAnchor, constant: -Configurator().sideOffset),
+            dateLabelTo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Configurator().sideOffset),
+            dateLabelTo.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Configurator().sideOffset),
+        ])
+        
 
     }
+    
+//    @objc func setDateLabelFrom(stringDate: String) {
+//        delegate?.setDateLabelFrom(stringDate: stringDate)
+////        dateLabelFrom.text? += stringDate
+//    }
+//
+//    @objc func setDateLabelTo(stringDate: String) {
+//        delegate?.setDateLabelTo(stringDate: stringDate)
+////        dateLabelTo.text? += stringDate
+//    }
     
     @objc func tappedSetPeriodButton() {
         delegate?.tappedSetPeriodButton()
     }
 }
+//
+//extension LaunchView: PeriodViewDelegate {
+//    func tappedClearButton() {
+//        print(#function)
+//    }
+//
+//    func tappedCloseButton() {
+//        print(#function)
+//    }
+//
+//    func tappedDateButtonTo() {
+//        print(#function)
+//    }
+//
+//    func tappedDateButtonFrom() {
+//        print(#function)
+//    }
+//
+//    func tappedChooseButton() {
+//        print(#function)
+//    }
+//
+//
+//}

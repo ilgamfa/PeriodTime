@@ -23,6 +23,7 @@ final class PeriodViewController: UIViewController {
 }
 
 extension PeriodViewController: LaunchViewDelegate {
+    
     func tappedSetPeriodButton() {
         print(#function)
         periodView.isHidden = !periodView.isHidden
@@ -30,14 +31,22 @@ extension PeriodViewController: LaunchViewDelegate {
 }
 
 extension PeriodViewController: PeriodViewDelegate {
+    func tappedChooseButton() {
+        print(#function)
+    }
+
+    func tappedCloseButton() {
+        print(#function)
+    }
+
     func tappedDateButtonFrom() {
         print(#function)
     }
-    
+
     func tappedDateButtonTo() {
         print(#function)
     }
-    
+
     func tappedClearButton() {
         print(#function)
     }

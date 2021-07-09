@@ -5,8 +5,10 @@ import UIKit
 
 protocol PeriodViewDelegate: AnyObject {
     func tappedClearButton()
+    func tappedCloseButton()
     func tappedDateButtonTo()
     func tappedDateButtonFrom()
+    func tappedChooseButton()
 }
 
 private extension PeriodView {
@@ -38,10 +40,14 @@ private extension PeriodView {
 
 final class PeriodView: UIView {
     
+    private var launchView = LaunchView(frame: UIScreen.main.bounds)
+    
     private let configurator = Configurator()
     weak var delegate: PeriodViewDelegate?
+//    weak var launchDelegate: LaunchViewDelegate?private var launchView = LaunchView(frame: UIScreen.main.bounds)
     
     override init(frame: CGRect) {
+        
         super.init(frame: frame)
         self.backgroundColor = .darkGray
         datePicker.backgroundColor = .white
@@ -58,6 +64,7 @@ final class PeriodView: UIView {
     }
 
     //MARK: - variables
+    
     
     private var dateFrom: Date = {
         let dateFrom = Date()
@@ -219,10 +226,12 @@ final class PeriodView: UIView {
 
     private func addActions() {
         clearButton.addTarget(self, action: #selector(tappedClearButton), for: .touchUpInside)
-        chooseButton.addTarget(self, action: #selector(tappedChooseButton), for: .touchUpInside)
-        
+        closeButton.addTarget(self, action: #selector(tappedCloseButton), for: .touchUpInside)
+
         dateButtonFrom.addTarget(self, action: #selector(tappedDateButtonFrom), for: .touchUpInside)
         dateButtonTo.addTarget(self, action: #selector(tappedDateButtonTo), for: .touchUpInside)
+        
+        chooseButton.addTarget(self, action: #selector(tappedChooseButton), for: .touchUpInside)
     }
     
     private func setupConstraints() {
@@ -336,6 +345,12 @@ final class PeriodView: UIView {
     }
     // MARK: - Handlers
 
+    @objc func tappedCloseButton() {
+        print(#function)
+        self.isHidden = true
+        tappedClearButton()
+    }
+    
     @objc func tappedClearButton() {
         delegate?.tappedClearButton()
         dateButtonFrom.setTitle("Дата от", for: .normal)
@@ -346,6 +361,7 @@ final class PeriodView: UIView {
     }
     
     @objc func tappedChooseButton() {
+        delegate?.tappedChooseButton()
         self.dateButtonFrom.resignFirstResponder()
         self.dateButtonTo.resignFirstResponder()
         datePicker.isHidden = true
@@ -356,7 +372,21 @@ final class PeriodView: UIView {
             let alert = UIAlertController(title: "Проверь корректность введенных данных!", message: "'Дата до' не может быть раньше 'Даты от'", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Исправить", style: .default, handler: nil))
             UIApplication.shared.windows.last?.rootViewController?.present(alert, animated: true, completion: nil)
+        } else {
+            
+            let dateformatter = DateFormatter()
+            dateformatter.locale = Locale(identifier: "ru-RU")
+            dateformatter.dateStyle = .short
+            
+            
+            
+//            let stringDateFrom = dateformatter.string(from: dateFrom)
+//            let stringDateTo = dateformatter.string(from: dateTo)
+    
+
+            tappedCloseButton()
         }
+        
     }
     
     @objc func tappedDateButtonFrom() {
@@ -378,8 +408,8 @@ final class PeriodView: UIView {
         dateformatter.locale = Locale(identifier: "ru-RU")
         dateformatter.dateStyle = .short
         dateFrom = datePicker.date
-        let date = dateformatter.string(from: datePicker.date)
-        dateButtonFrom.setTitle(date, for: .normal)
+        let stringDateFrom = dateformatter.string(from: datePicker.date)
+        dateButtonFrom.setTitle(stringDateFrom, for: .normal)
         dateButtonFrom.setTitleColor(.black, for: .normal)
     }
     
@@ -388,8 +418,16 @@ final class PeriodView: UIView {
         dateformatter.locale = Locale(identifier: "ru-RU")
         dateformatter.dateStyle = .short
         dateTo = datePicker.date
-        let date = dateformatter.string(from: datePicker.date)
-        dateButtonTo.setTitle(date, for: .normal)
+        let stringDateTo = dateformatter.string(from: datePicker.date)
+        dateButtonTo.setTitle(stringDateTo, for: .normal)
         dateButtonTo.setTitleColor(.black, for: .normal)
     }
+}
+
+extension PeriodView: LaunchViewDelegate {
+    func tappedSetPeriodButton() {
+        print(#function)
+    }
+    
+    
 }
