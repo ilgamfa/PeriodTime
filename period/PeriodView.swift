@@ -92,7 +92,7 @@ final class PeriodView: UIView {
     
     private let clearButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Очистить", for: .normal)
+        button.setTitle("Clear".localized(), for: .normal)
         button.titleLabel?.font = Configurator().fontInterRegular14
         button.titleLabel?.font = Configurator().boldSystemFont14
         button.setTitleColor(UIColor(named: "primary 500"), for: .normal)
@@ -102,7 +102,7 @@ final class PeriodView: UIView {
     private let periodLabel: UILabel = {
         let label = UILabel()
         label.font =  Configurator().fontInterRegular16
-        label.text = "Период"
+        label.text = "Period".localized()
         return label
     }()
     
@@ -115,7 +115,7 @@ final class PeriodView: UIView {
     private let dateButtonFrom: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = Configurator().cornerRadius
-        button.setTitle("Дата от", for: .normal)
+        button.setTitle("Date from:".localized(), for: .normal)
         button.titleLabel?.font = Configurator().fontInterRegular16
         button.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
         button.setTitleColor(UIColor(named: "dateColor"), for: .normal)
@@ -127,7 +127,7 @@ final class PeriodView: UIView {
     private let dateButtonTo: UIButton = {
         let button = UIButton()
         button.layer.cornerRadius = Configurator().cornerRadius
-        button.setTitle("Дата до", for: .normal)
+        button.setTitle("Date to:".localized(), for: .normal)
         button.titleLabel?.font = Configurator().fontInterRegular16
         button.backgroundColor = #colorLiteral(red: 0.9568068385, green: 0.9661124349, blue: 0.9732303023, alpha: 1)
         button.setTitleColor(UIColor(named: "dateColor"), for: .normal)
@@ -139,7 +139,7 @@ final class PeriodView: UIView {
     private let chooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
         chooseButton.layer.cornerRadius = Configurator().cornerRadius
-        chooseButton.setTitle("Выбрать", for: .normal)
+        chooseButton.setTitle("Choose".localized(), for: .normal)
         chooseButton.titleLabel?.font = Configurator().fontInterRegular16
         chooseButton.titleLabel?.font = Configurator().boldSystemFont16
         chooseButton.backgroundColor = #colorLiteral(red: 0.2591463923, green: 0.4271838069, blue: 0.6611289978, alpha: 1)
@@ -161,7 +161,7 @@ final class PeriodView: UIView {
     
     private let toolBarFromChooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
-        chooseButton.setTitle("Выбрать", for: .normal)
+        chooseButton.setTitle("Choose".localized(), for: .normal)
         chooseButton.titleLabel?.font = Configurator().fontInterRegular16
         chooseButton.titleLabel?.font = Configurator().boldSystemFont16
         chooseButton.setTitleColor(UIColor(named: "primary 700"), for: .normal)
@@ -171,7 +171,7 @@ final class PeriodView: UIView {
     
     private let toolBarToChooseButton: UIButton = {
         let chooseButton = UIButton(type: .system)
-        chooseButton.setTitle("Выбрать", for: .normal)
+        chooseButton.setTitle("Choose".localized(), for: .normal)
         chooseButton.titleLabel?.font = Configurator().fontInterRegular16
         chooseButton.titleLabel?.font = Configurator().boldSystemFont16
         chooseButton.setTitleColor(UIColor(named: "primary 700"), for: .normal)
@@ -181,7 +181,7 @@ final class PeriodView: UIView {
     
     private let toolBarDateBeginning: UILabel = {
         let label = UILabel()
-        label.text = "Дата начала:"
+        label.text = "Start:".localized()
         label.textColor = UIColor(named: "dateColor")
         label.font =  Configurator().fontInterRegular14
         return label
@@ -189,7 +189,7 @@ final class PeriodView: UIView {
     
     private let toolBarDateEnding: UILabel = {
         let label = UILabel()
-        label.text = "Дата конца:"
+        label.text = "End:".localized()
         label.textColor = UIColor(named: "dateColor")
         label.font =  Configurator().fontInterRegular14
         return label
@@ -199,7 +199,7 @@ final class PeriodView: UIView {
         let screenWidth = UIScreen.main.bounds.width
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
-        datePicker.locale = Locale(identifier: "ru_RU")
+        datePicker.locale = Locale(identifier: "en".localized())
 
         if #available(iOS 14, *) {
             datePicker.preferredDatePickerStyle = .wheels
@@ -361,10 +361,10 @@ final class PeriodView: UIView {
     
     @objc func tappedClearButton() {
         delegate?.tappedClearButton()
-        dateButtonFrom.setTitle("Дата от", for: .normal)
+        dateButtonFrom.setTitle("Date from:".localized(), for: .normal)
         dateButtonFrom.setTitleColor(UIColor(named: "dateColor"), for: .normal)
         
-        dateButtonTo.setTitle("Дата до", for: .normal)
+        dateButtonTo.setTitle("Date to:".localized(), for: .normal)
         dateButtonTo.setTitleColor(UIColor(named: "dateColor"), for: .normal)
     }
     
@@ -375,8 +375,8 @@ final class PeriodView: UIView {
         toolBarTo.isHidden = true
         
         if dateFrom > dateTo {
-            let alert = UIAlertController(title: "Проверь корректность введенных данных!", message: "'Дата до' не может быть раньше 'Даты от'", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Исправить", style: .default, handler: nil))
+            let alert = UIAlertController(title: "Check the correctness of the entered data!".localized(), message: "'Date to' cannot be earlier 'Date from'".localized(), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Fix".localized(), style: .default, handler: nil))
             UIApplication.shared.windows.last?.rootViewController?.present(alert, animated: true, completion: nil)
         } else {
             let dateformatter = DateFormatter()

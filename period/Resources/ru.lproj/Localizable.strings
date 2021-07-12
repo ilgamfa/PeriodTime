@@ -1,7 +1,14 @@
-/* 
-  File.strings
-  period
-
-  Created by Ильгам Ахматдинов on 01.07.2021.
-  
-*/
+"  Date from:  " = "  Дата от:  ";
+"  Date to:  " = "  Дата до:  ";
+"  Set period  " = "  Установить период  ";
+"Clear" = "Очистить";
+"Period" = "Период";
+"Date from:" = "Дата от:";
+"Date to:" = "Дата до:";
+"Choose" = "Выбрать";
+"Start:" = "Дата начала:";
+"End:" = "Дата конца:";
+"Check the correctness of the entered data!" = "Проверь корректность введенных данных!";
+"'Date to' cannot be earlier 'Date from'" = "'Дата до' не может быть раньше 'Даты от'";
+"Fix" = "Исправить";
+"en" = "ru-RU";

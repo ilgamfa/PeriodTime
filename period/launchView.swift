@@ -59,7 +59,10 @@ final class LaunchView: UIView {
         label.backgroundColor = UIColor(named: "dateColor")
         label.layer.masksToBounds = true
         label.layer.cornerRadius = Configurator().cornerRadius
-        label.text = "  Дата от: "
+        
+        label.text = "  Date from:  ".localized()
+        
+//        label.text = "  Дата от: "
         label.textAlignment = .left
         label.tintColor = .black
         label.font = Configurator().fontInterRegular16
@@ -71,7 +74,7 @@ final class LaunchView: UIView {
         label.backgroundColor = UIColor(named: "dateColor")
         label.layer.masksToBounds = true
         label.layer.cornerRadius = Configurator().cornerRadius
-        label.text = "  Дата до: "
+        label.text = "  Date to:  ".localized()
         label.textAlignment = .left
         label.tintColor = .black
         label.font = Configurator().fontInterRegular16
@@ -81,7 +84,7 @@ final class LaunchView: UIView {
     private let setPeriodButton: UIButton = {
         let button = UIButton(type: .system)
         button.layer.cornerRadius = Configurator().cornerRadius
-        button.setTitle("  Установить период  ", for: .normal)
+        button.setTitle("  Set period  ".localized(), for: .normal)
         button.titleLabel?.font = Configurator().fontInterRegular16
         button.titleLabel?.font = Configurator().boldSystemFont16
         button.backgroundColor = #colorLiteral(red: 0.2591463923, green: 0.4271838069, blue: 0.6611289978, alpha: 1)
@@ -141,8 +144,8 @@ final class LaunchView: UIView {
 
     @objc func tappedSetPeriodButton() {
         delegate?.tappedSetPeriodButton()
-        dateLabelFrom.text = "  Дата до: "
-        dateLabelTo.text = "  Дата от: "
+        dateLabelFrom.text = "  Date from:  ".localized()
+        dateLabelTo.text = "  Date to:  ".localized()
         periodView.isHidden = !periodView.isHidden
     }
 
