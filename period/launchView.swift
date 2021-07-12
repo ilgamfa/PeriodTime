@@ -27,7 +27,7 @@ private extension LaunchView {
 final class LaunchView: UIView {
     private let configurator = Configurator()
 
-    private var periodView = PeriodView()
+    private var periodView = PeriodView(frame: UIScreen.main.bounds)
     
     weak var delegate: LaunchViewDelegate?
 
@@ -38,6 +38,8 @@ final class LaunchView: UIView {
         setupConstraints()
         addActions()
         periodView.updateDataDelegate = self
+        self.addSubview(periodView)
+        periodView.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -139,6 +141,9 @@ final class LaunchView: UIView {
 
     @objc func tappedSetPeriodButton() {
         delegate?.tappedSetPeriodButton()
+        dateLabelFrom.text = "  Дата до: "
+        dateLabelTo.text = "  Дата от: "
+        periodView.isHidden = !periodView.isHidden
     }
 
 }
@@ -146,7 +151,8 @@ final class LaunchView: UIView {
 extension LaunchView: DataUpdateDelegate {
     
     func onDataUpdate(dateFrom: String, dateTo: String) {
-        dateLabelFrom.text = dateFrom
-        dateLabelTo.text = dateTo
+        
+        dateLabelFrom.text? += dateFrom
+        dateLabelTo.text? += dateTo
     }
 }
