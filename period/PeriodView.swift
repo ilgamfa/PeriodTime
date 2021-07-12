@@ -3,6 +3,10 @@
 
 import UIKit
 
+protocol DataUpdateDelegate: AnyObject {
+    func onDataUpdate(dateFrom: String, dateTo: String)
+}
+ 
 protocol PeriodViewDelegate: AnyObject {
     func tappedClearButton()
     func tappedCloseButton()
@@ -39,13 +43,13 @@ private extension PeriodView {
 }
 
 final class PeriodView: UIView {
-    
-    private var launchView = LaunchView(frame: UIScreen.main.bounds)
-    
+
     private let configurator = Configurator()
     
+    //MARK: - Delegate
+
     weak var delegate: PeriodViewDelegate?
-    var updateDataDelegate: DataUpdateProtocol?
+    weak var updateDataDelegate: DataUpdateDelegate?
     
     override init(frame: CGRect) {
         
@@ -351,6 +355,7 @@ final class PeriodView: UIView {
     @objc func tappedCloseButton() {
         delegate?.tappedCloseButton()
         self.isHidden = true
+        
         tappedClearButton()
     }
     
@@ -374,7 +379,6 @@ final class PeriodView: UIView {
             alert.addAction(UIAlertAction(title: "Исправить", style: .default, handler: nil))
             UIApplication.shared.windows.last?.rootViewController?.present(alert, animated: true, completion: nil)
         } else {
-            
             let dateformatter = DateFormatter()
             dateformatter.locale = Locale(identifier: "ru-RU")
             dateformatter.dateStyle = .short
@@ -423,9 +427,3 @@ final class PeriodView: UIView {
         dateButtonTo.setTitleColor(.black, for: .normal)
     }
 }
-
-//extension PeriodView: LaunchViewDelegate {
-//    func tappedSetPeriodButton() {
-//        print(#function)
-//    }
-//}

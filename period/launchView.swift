@@ -25,17 +25,19 @@ private extension LaunchView {
 }
 
 final class LaunchView: UIView {
-    
     private let configurator = Configurator()
+
+    private var periodView = PeriodView()
     
     weak var delegate: LaunchViewDelegate?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .darkGray
         setupViews()
         setupConstraints()
         addActions()
+        periodView.updateDataDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -46,7 +48,6 @@ final class LaunchView: UIView {
         let contentView = UIView(frame: .zero)
         contentView.backgroundColor = .white
         contentView.layer.cornerRadius = Configurator().cornerRadius
-        
         return contentView
     }()
     
@@ -141,10 +142,11 @@ final class LaunchView: UIView {
     }
 
 }
+
+extension LaunchView: DataUpdateDelegate {
     
-extension LaunchView: DataUpdateProtocol {
     func onDataUpdate(dateFrom: String, dateTo: String) {
-        dateLabelFrom.text? += dateFrom
-        dateLabelTo.text? += dateTo
+        dateLabelFrom.text = dateFrom
+        dateLabelTo.text = dateTo
     }
 }
