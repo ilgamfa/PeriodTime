@@ -16,28 +16,35 @@ final class PeriodViewController: UIViewController {
     override func loadView() {
         self.view = launchView
         launchView.delegate = self
-        view.addSubview(periodView)
         periodView.delegate = self
-        periodView.isHidden = true
        }
 }
 
 extension PeriodViewController: LaunchViewDelegate {
+    
     func tappedSetPeriodButton() {
         print(#function)
-        periodView.isHidden = !periodView.isHidden
     }
 }
 
 extension PeriodViewController: PeriodViewDelegate {
+    func tappedChooseButton() {
+        
+        print(#function)
+    }
+
+    func tappedCloseButton() {
+        print(#function)
+    }
+
     func tappedDateButtonFrom() {
         print(#function)
     }
-    
+
     func tappedDateButtonTo() {
         print(#function)
     }
-    
+
     func tappedClearButton() {
         print(#function)
     }
